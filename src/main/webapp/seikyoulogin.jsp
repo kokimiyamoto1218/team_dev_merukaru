@@ -5,17 +5,52 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ログイン</title>
+<title>生協ログイン</title>
 </head>
 <body>
 <form>
-<h2>ログイン</h2>
+<h2>生協ログイン</h2>
 名前<br>
 <input type="text" name="name" cols="20"><br>
 Pass<br>
 <input type="text" pass="pass" cols="20"><br><br>
 <button><p><a href="Servlet">ログイン</a></p></button><br>
-<p><a href="Servlet">新規会員登録</a> <a href="Servlet">生協の方はこちら</a></p>
 </form>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
