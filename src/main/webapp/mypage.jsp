@@ -8,18 +8,18 @@
 <title>マイページ</title>
 </head>
 <body>
-<form action ="/team_dev_merukaru/SystemServlet">
-<p><a href="/team_dev_merukaru/SystemServlet?action=login">一覧表示に戻る</a></p><br><br>
+
+<p><a href="/team_dev_merukaru/SystemServlet?action=login">一覧表示に戻る</a></p><br>
 <h2>マイページ</h2>
-<p><button  name = "action" value = "info">会員情報照会</button></p><br>
+<p><a href="/team_dev_merukaru/SystemServlet?action=login">会員情報照会</a></p>
 
-<p><button name = "action" value = "shistory">出品履歴・取消</button></p><br>
+<p><a href="/team_dev_merukaru/SystemServlet?action=shistory">出品履歴・取り消し</a></p>
 
-<p><button name = "action" value ="bhistory">購入履歴</button></p><br>
+<p><a href="/team_dev_merukaru/SystemServlet?action=bhistory">購入履歴</a></p>
 
-<p><button name = "action" value ="logout">ログアウト</button></p>
+<p><a href="/team_dev_merukaru/SystemServlet?action=logout">ログアウト</a></p>
 
 
-</form>
+
 </body>
 </html>
