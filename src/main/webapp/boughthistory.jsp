@@ -16,5 +16,6 @@
 <tr><td></td><td></td><td></td><td></td></tr>
 </table>
 
+<p><a href="/team_dev_merukaru/SystemServlet?action=login">一覧表示に戻る</a></p><br><br>
 </body>
 </html>

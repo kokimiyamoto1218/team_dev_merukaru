@@ -14,8 +14,8 @@
 <input type="text" name="name" cols="20"><br>
 Pass<br>
 <input type="text" pass="pass" cols="20"><br><br>
-<button><p><a href="Servlet">ログイン</a></p></button><br>
-<p><a href="Servlet">新規会員登録</a> <a href="Servlet">生協の方はこちら</a></p>
+<button><p><a href="/team_dev_merukaru/SystemServlet?action=login">ログイン</a></p></button><br>
+<p><a href="/team_dev_merukaru/SystemServlet?action=new">新規会員登録</a> <a href="/team_dev_merukaru/SystemServlet?action=seikyoulogin">生協の方はこちら</a></p>
 </form>
 </body>
 </html>

@@ -14,7 +14,7 @@
 <input type="text" name="name" cols="20"><br>
 Pass<br>
 <input type="text" pass="pass" cols="20"><br><br>
-<button><p><a href="Servlet">ログイン</a></p></button><br>
+<button><p><a href="/team_dev_merukaru/SystemServlet?action=slogin">ログイン</a></p></button><br>
 </form>
 </body>
 </html>

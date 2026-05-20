@@ -9,7 +9,7 @@
 </head>
 <body>
 <form>
-<p><a href="Servlet">会員情報照会に戻る</a></p><br><br>
+<p><a href="/team_dev_merukaru/SystemServlet?action=info">会員情報照会に戻る</a></p><br><br>
 <h2>会員情報変更</h2>
 名前<br>
 <input type="text" name="name" cols="20"><br>
@@ -20,7 +20,7 @@
 新パスワード確認用<br>
 <input type="text" pass="newpass" cols="20"><br>
 
-<p><a href="Servlet"><button>変更</button></a></p>
+<p><a href="/team_dev_merukaru/SystemServlet"><button>変更</button></a></p>
 </form>
 </body>
 </html>
