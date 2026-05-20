@@ -8,8 +8,8 @@
 <title>出品</title>
 </head>
 <body>
-<form action = "/team_dev_merukaru/SystemServlet">
-<p><a href="/team_dev_merukaru/SystemServlet?action=login">一覧表示に戻る</a></p><br><br>
+<form action = "/team_dev_merukaru/SystemServlet" method = "post">
+<p><a href="/team_dev_merukaru/SystemServlet?action=slogin">一覧表示に戻る</a></p><br><br>
 <h2>出品フォーム</h2>
 教科書名<br>
 <input type="text" name="name" cols="20"><br>
@@ -24,7 +24,7 @@
 
 コメント<br>
 <input type="text" pass="pass" cols="50">
-<p><button name = "action" value = "go">出品</button></p>
+<p><button name = "action" value = "seikyousale">出品</button></p>
 </form>
 </body>
 </html>

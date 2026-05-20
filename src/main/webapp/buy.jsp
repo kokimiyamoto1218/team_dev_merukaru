@@ -21,6 +21,7 @@ th {
 </style>
 </head>
 <body>
+<<<<<<< HEAD
 	<form>
 		<table id="outer">
 			<tr>
@@ -56,5 +57,16 @@ th {
 			</tr>
 		</table>
 	</form>
+=======
+
+<h2>購入内容確認</h2>
+<table border="1">
+<tr><th>新品・中古</th><th>教科書名</th><th>金額</th><th>傷状態・コメント</th></tr>
+<tr><td></td><td></td><td></td><td></td><td></tr>
+</table>
+<button><p><a href="/team_dev_merukaru/SystemServlet?action=sale">購入</a></p></button><br>
+<button><p><a href="/team_dev_merukaru/SystemServlet?action=login">前のページに戻る</a></p></button><br>
+
+>>>>>>> 32d451f9dbf6788955b49b8d5b6d8e6d90d42e81
 </body>
 </html>
