@@ -36,6 +36,11 @@ public class SystemServlet extends HttpServlet {
 				
 			
 			}
+			 else if(action.equals("logout")) {
+					
+					gotoPage(request,response,"/login.jsp");
+					
+				}
 			 else if(action.equals("new")) {
 				 
 					gotoPage(request, response, "/newmember.jsp");
@@ -53,6 +58,10 @@ public class SystemServlet extends HttpServlet {
 					gotoPage(request, response, "/sale.jsp");
 			 }
 			 else if(action.equals("search")) {
+				 
+					gotoPage(request, response, "/itemlist.jsp");
+			 }
+			 else if(action.equals("go")) {
 				 
 					gotoPage(request, response, "/itemlist.jsp");
 			 }

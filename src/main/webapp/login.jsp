@@ -8,14 +8,15 @@
 <title>ログイン</title>
 </head>
 <body>
-<form>
+<form action = "/team_dev_merukaru/SystemServlet" method = "post">
 <h2>ログイン</h2>
 名前<br>
 <input type="text" name="name" cols="20"><br>
 Pass<br>
-<input type="text" pass="pass" cols="20"><br><br>
-<button><p><a href="/team_dev_merukaru/SystemServlet?action=login">ログイン</a></p></button><br>
-<p><a href="/team_dev_merukaru/SystemServlet?action=new">新規会員登録</a> <a href="/team_dev_merukaru/SystemServlet?action=seikyoulogin">生協の方はこちら</a></p>
+<input type="text" name="pass" cols="20"><br><br>
+<button name = "action" value = "login">ログイン</button><br>
 </form>
+<p><a href="/team_dev_merukaru/SystemServlet?action=new">新規会員登録</a> <a href="/team_dev_merukaru/SystemServlet?action=seikyoulogin">生協の方はこちら</a></p>
+
 </body>
 </html>

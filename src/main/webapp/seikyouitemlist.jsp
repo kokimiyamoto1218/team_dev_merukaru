@@ -12,7 +12,8 @@
 <form>
 <caption>メニュー</caption>
 <p><a href="/team_dev_merukaru/SystemServlet?action=ssale">出品</a></p>
-<p><a href="/team_dev_merukaru/SystemServlet?action=ssalehis">出品履歴・取消</a></p>                
+<p><a href="/team_dev_merukaru/SystemServlet?action=ssalehis">出品履歴・取消</a></p> 
+<p><a href="/team_dev_merukaru/SystemServlet">ログアウト</a></p>                        
 </form>
 
 <form action ="/team_dev_merukaru/SystemServlet" method = "get">

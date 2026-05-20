@@ -8,7 +8,7 @@
 <title>出品</title>
 </head>
 <body>
-<form>
+<form action = "/team_dev_merukaru/SystemServlet">
 <p><a href="/team_dev_merukaru/SystemServlet?action=login">一覧表示に戻る</a></p><br><br>
 <h2>出品フォーム</h2>
 教科書名<br>
@@ -24,7 +24,7 @@
 
 コメント<br>
 <input type="text" pass="pass" cols="50">
-<p><button><a href="/team_dev_merukaru/SystemServlet?action=sale">出品</a></button></p>
+<p><button name = "action" value = "go">出品</button></p>
 </form>
 </body>
 </html>
