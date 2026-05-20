@@ -17,7 +17,7 @@
 
 <form>
 <h2>教科書検索</h2>
-<input type="text" name="bookname" cols="50">
+<input type="text" size="33" name="bookname" cols="50">
 <select name="bookname">
 <option value="全て">全て</option>
 <option value="新品">新品</option>
