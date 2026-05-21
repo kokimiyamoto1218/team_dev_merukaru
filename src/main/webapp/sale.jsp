@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>出品</title>
+<link href="all.css" rel="stylesheet">
 </head>
 <body>
 <form action = "/team_dev_merukaru/ItemServlet">

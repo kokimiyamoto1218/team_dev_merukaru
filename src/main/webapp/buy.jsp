@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>購入</title>
+<link href="all.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="buy.css" />
 <style>
 th {

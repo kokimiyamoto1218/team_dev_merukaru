@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>新規棋院登録</title>
+<link href="all.css" rel="stylesheet">
 </head>
 <body>
 <form>
