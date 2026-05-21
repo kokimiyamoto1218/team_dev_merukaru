@@ -19,14 +19,14 @@
 
 <form action ="/team_dev_merukaru/ItemServlet" method = "get">
 <input type = "hidden" name= "action" value = "search">
-<<<<<<< HEAD
+
 <div class="parent"><h2>教科書検索</h2></div>
 
 
 
 <input type="text" size="33" name="bookname" cols="50">
 <select name="check">
-=======
+
 <h2>教科書検索</h2>
 
 <input type="text" size="33" name="bookname" cols="50">
@@ -35,7 +35,7 @@
 <input type="text" name="bookname" cols="50">
 <select name="check">
 
->>>>>>> 5453665ff30e69ec937aa9611a106844b6a58e02
+
 <option value="全て">全て</option>
 <option value="新品">新品</option>
 <option value="中古">中古</option>
