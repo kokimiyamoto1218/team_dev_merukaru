@@ -62,7 +62,7 @@ public class ItemServlet extends HttpServlet {
 				 System.out.println("aaa");
 				 List<ItemBean> list = dao.findAll();
 					// Listをリクエストスコープに入れてJSPへフォーワードする
-					request.setAttribute("items", list);
+					request.setAttribute("showitem", list);
 					gotoPage(request, response, "/itemlist.jsp");
 			 }
 			 else if(action.equals("buy")) {

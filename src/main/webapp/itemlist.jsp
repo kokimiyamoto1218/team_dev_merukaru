@@ -21,14 +21,14 @@
 				<!-- メニュー -->
 					<p>メニュー</p>
 					<p>
-						<a href="/team_dev_merukaru/SystemServlet?action=mypage">マイページ</a>
+						<a href="/team_dev_merukaru/ItemServlet?action=mypage">マイページ</a>
 					</p>
 					<p>
-						<a href="/team_dev_merukaru/SystemServlet?action=sale">出品</a>
+						<a href="/team_dev_merukaru/ItemServlet?action=sale">出品</a>
 					</p>
 			</td>
 			<td class="custom-cell">
-				<!--検索 --><form action="/team_dev_merukaru/SystemServlet" method="get">
+				<!--検索 --><form action="/team_dev_merukaru/ItemServlet" method="get">
 		<input type="hidden" name="action" value="search">
 
 		<h2>教科書検索</h2>
@@ -67,7 +67,7 @@
 			<td>${showitems.name}</td>
 			<td>${showitems.price}</td>
 			<td>${showitems.condition}</td>
-			<td><a href="/team_dev_merukaru/SystemServlet?action=buy">購入</a></td>
+			<td><a href="/team_dev_merukaru/ItemServlet?action=buy">購入</a></td>
 		</tr>
 </c:forEach>
 
