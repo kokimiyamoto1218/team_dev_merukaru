@@ -22,11 +22,11 @@
 						<a href="/team_dev_merukaru/SystemServlet?action=mypage">マイページ</a>
 					</p>
 					<p>
-						<a href="/team_dev_merukaru/SystemServlet?action=sale">出品</a>
+						<a href="/team_dev_merukaru/ItemServlet?action=sale">出品</a>
 					</p>
 			</td>
 			<td class="custom-cell">
-				<!--検索 --><form action="/team_dev_merukaru/SystemServlet" method="get">
+				<!--検索 --><form action="/team_dev_merukaru/ItemServlet" method="get">
 		<input type="hidden" name="action" value="search">
 
 		<h2>教科書検索</h2>
@@ -60,13 +60,20 @@
 			<th></th>
 		</tr>
 
-		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td><a href="/team_dev_merukaru/SystemServlet?action=buy">購入</a></td>
-		</tr>
+		<c:forEach items="${items}" var="item">
+	<form action ="/team_dev_merukaru/ItemServlet" method = "post">
+	
+		<tr><td>${item.nu}</td><td>${item.name}</td><td>${item.price}</td><td>${item.lang}:${item.comment}</td>
+		<td>
+			<form action="/team_dev_merukaru/ItemServlet">
+				<input type="hidden" name="action" value="buy">
+				<input type="hidden" name="code" value="${item.code}">
+				<button>購入</button>
+			</form>
+		</td>
+		
+
+		</tr></c:forEach>
 
 
 	</table>

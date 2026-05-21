@@ -57,18 +57,19 @@ public class ItemDAO {
 			throw new DAOException("レコードの取得に失敗しました。");
 		}
 	}
-	public int addItem(int catecode,String name,int price) throws DAOException {
+	public int addItem(String name,int price,String nu,String lang,String comment) throws DAOException {
 		// SQL文の作成
-		String sql = "INSERT INTO item(category_code,name, price) VALUES(?, ?, ?)";
+		String sql = "INSERT INTO sale(product_name, price,condition,neworused) VALUES( ?, ?, ?, ?)";
 		
 		try (// データベースへの接続
 			 Connection con = DriverManager.getConnection(url, user, pass);
 			 // PreparedStatementオブジェクトの取得
 			 PreparedStatement st = con.prepareStatement(sql);) {
 			// 商品名と値段の指定
-			st.setInt(1, catecode);
-			st.setString(2, name);
-			st.setInt(3, price);
+			st.setString(1, name);
+			st.setInt(2, price);
+			st.setString(3, lang + ":" + comment);
+			st.setString(4, nu);
 			// SQLの実行
 			int rows = st.executeUpdate();
 			return rows;

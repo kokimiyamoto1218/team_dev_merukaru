@@ -1,6 +1,7 @@
 package la.servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,6 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import la.bean.ItemBean;
+import la.dao.ItemDAO;
 
 @WebServlet("/ItemServlet")
 public class ItemServlet extends HttpServlet {
@@ -48,6 +52,17 @@ public class ItemServlet extends HttpServlet {
 			 }
 			 else if(action.equals("go")) {
 				 //出品→一覧ページ
+				 String name = request.getParameter("name");
+				 int price = Integer.parseInt(request.getParameter("price"));
+				 String nu = request.getParameter("nu");
+				 String lang = request.getParameter("lang");
+				 String comment = request.getParameter("comment");
+				 ItemDAO dao = new ItemDAO();
+				 dao.addItem(name, price,nu,lang,comment);
+				 System.out.println("aaa");
+				 List<ItemBean> list = dao.findAll();
+					// Listをリクエストスコープに入れてJSPへフォーワードする
+					request.setAttribute("items", list);
 					gotoPage(request, response, "/itemlist.jsp");
 			 }
 			 else if(action.equals("buy")) {
