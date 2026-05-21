@@ -44,7 +44,7 @@ public class ItemDAO {
 				int price = rs.getInt("price");
 				String condition = rs.getString("condition");
 				String neworused = rs.getString("neworused");
-				int delete_flag =rs.getInt("delete_flog");
+				int delete_flag =rs.getInt("delete_flag");
 				
 				
 				ItemBean bean = new ItemBean(product_id,product_name,price,condition,neworused,delete_flag);
