@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>一覧表示</title>
+<link href="all.css" rel="stylesheet">
 <link rel="stylesheet" href="itemlist.css" />
 </head>
 <body>

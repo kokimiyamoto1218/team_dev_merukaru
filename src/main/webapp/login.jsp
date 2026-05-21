@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>ログイン</title>
+<link href="all.css" rel="stylesheet">
 </head>
 <body>
 <form action = "/team_dev_merukaru/SystemServlet" method = "post">

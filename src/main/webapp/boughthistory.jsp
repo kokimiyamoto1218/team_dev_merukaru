@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title >購入履歴</title>
 <!-- <link href="boughthistory.css" rel="./team_dev_group7/styleseet"> -->
+<link href="all.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="boughthistory.css" /> 
 </head>
 <body>

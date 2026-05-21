@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>出品履歴</title>
+<link href="all.css" rel="stylesheet">
 </head>
 <body>
 <br><br><br>

@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="all.css" rel="stylesheet">
 <title>会員情報照会</title>
 </head>
 <body>
