@@ -29,24 +29,10 @@
 				<!--検索 --><form action="/team_dev_merukaru/SystemServlet" method="get">
 		<input type="hidden" name="action" value="search">
 
-<<<<<<< HEAD
 		<h2>教科書検索</h2>
 
 
 
-=======
-<form action ="/team_dev_merukaru/ItemServlet" method = "get">
-<input type = "hidden" name= "action" value = "search">
-
-<div class="parent"><h2>教科書検索</h2></div>
-
-
-
-<input type="text" size="33" name="bookname" cols="50">
-<select name="check">
-
-<h2>教科書検索</h2>
->>>>>>> 0c608e1d1fa01449477e87fcc807137ceaf715b8
 
 		<input type="text" size="33" name="bookname" cols="50"> <select
 			name="check">
@@ -61,16 +47,7 @@
 		</tr>
 	</table>
 
-<<<<<<< HEAD
 	
-=======
-
-<option value="全て">全て</option>
-<option value="新品">新品</option>
-<option value="中古">中古</option>
-</select>
-<button>検索</button><br><br>
->>>>>>> 0c608e1d1fa01449477e87fcc807137ceaf715b8
 
 	
 <div class="parent">
