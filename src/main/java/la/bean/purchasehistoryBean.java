@@ -3,44 +3,39 @@ package la.bean;
 import java.io.Serializable;
 
 public class purchasehistoryBean implements Serializable {
-	private int code;
-	private int catecode;
-	private String name;
+	private int product_id;
+	private String product_name;
 	private int price;
+	private int buyer_id;
+	private String booking;
 
-	public purchasehistoryBean(int code, int catecode,String name, int price) {
-		this.code = code;
-		this.catecode = catecode;
-		this.name = name;
+	public purchasehistoryBean(int product_id, String product_name,int price,int buyer_id, String booking) {
+		this.product_id = product_id;
+		this.product_name = product_name;
 		this.price = price;
+		this.buyer_id = buyer_id;
+		this.booking = booking;
+		
 	}
 
 	public purchasehistoryBean() {
 
 	}
 
-	public int getCode() {
-		return code;
+	public int getProduct_id() {
+		return product_id;
 	}
 
-	public void setCode(int code) {
-		this.code = code;
-	}
-	
-	public int getCatecode() {
-		return catecode;
+	public void setProduct_id(int product_id) {
+		this.product_id = product_id;
 	}
 
-	public void setCatecode(int catecode) {
-		this.catecode = catecode;
+	public String getProduct_name() {
+		return product_name;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
 	}
 
 	public int getPrice() {
@@ -50,4 +45,22 @@ public class purchasehistoryBean implements Serializable {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+
+	public int getBuyer_id() {
+		return buyer_id;
+	}
+
+	public void setBuyer_id(int buyer_id) {
+		this.buyer_id = buyer_id;
+	}
+
+	public String getBooking() {
+		return booking;
+	}
+
+	public void setBooking(String booking) {
+		this.booking = booking;
+	}
+
+	
 }

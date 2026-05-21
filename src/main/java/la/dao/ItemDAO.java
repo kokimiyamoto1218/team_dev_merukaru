@@ -39,11 +39,15 @@ public class ItemDAO {
 			// 結果の取得
 			List<ItemBean> list = new ArrayList<ItemBean>();
 			while (rs.next()) {
-				String neworused = rs.getString("neworused");
+				int product_id=rs.getInt("product_id");
 				String  product_name = rs.getString("product_name");
-				String condition = rs.getString("condition");
 				int price = rs.getInt("price");
-				ItemBean bean = new ItemBean(neworused,product_name,price,condition);
+				String condition = rs.getString("condition");
+				String neworused = rs.getString("neworused");
+				int delete_flag =rs.getInt("delete_flog");
+				
+				
+				ItemBean bean = new ItemBean(product_id,product_name,price,condition,neworused,delete_flag);
 				list.add(bean);
 			}
 			// 商品一覧をListとして返す
