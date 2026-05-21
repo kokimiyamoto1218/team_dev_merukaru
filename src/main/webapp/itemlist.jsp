@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
@@ -62,7 +63,7 @@
 <c:forEach items="${showitem}" var="showitems">
 		<tr>
 			<td>${showitems.neworused}</td>
-			<td>${showitems.product_name}</td>
+			<td>${showitems.name}</td>
 			<td>${showitems.price}</td>
 			<td>${showitems.condition}</td>
 			<td><a href="/team_dev_merukaru/SystemServlet?action=buy">購入</a></td>
