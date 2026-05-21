@@ -1,6 +1,9 @@
 .parent {
   display: flex;
   justify-content: center; /* 左右の中央揃え */
-  align-items: center;     /* 上下の中央揃え */
-  height: 100vh;           /* 画面全体などの高さを指定 */
+  align-items: start;     
+        
+}
+.custom-cell {
+  padding-left: 180px;
 }
