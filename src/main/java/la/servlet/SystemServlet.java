@@ -1,6 +1,7 @@
 package la.servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,6 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import la.bean.ItemBean;
+import la.dao.ItemDAO;
 
 @WebServlet("/SystemServlet")
 public class SystemServlet extends HttpServlet {
@@ -20,6 +24,7 @@ public class SystemServlet extends HttpServlet {
 		try {
 			request.setCharacterEncoding("UTF-8");
 			//ItemDAO dao = new ItemDAO();
+			ItemDAO dao = new ItemDAO();
 			
 			String action = request.getParameter("action");
 			//DAOオブジェクト生成
@@ -44,9 +49,11 @@ public class SystemServlet extends HttpServlet {
 					gotoPage(request, response, "/newmember.jsp");
 			 }
 			 else if(action.equals("login")) {
+				 List<ItemBean> list = dao.findAll();
 				 //ログイン認証→一覧ページ
+				 request.setAttribute("showitem", list);
+				 gotoPage(request, response, "/itemlist.jsp");
 				 
-					gotoPage(request, response, "/itemlist.jsp");
 			 }
 			 
 			 
