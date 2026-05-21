@@ -18,8 +18,13 @@
 <form action ="/team_dev_merukaru/SystemServlet" method = "get">
 <input type = "hidden" name= "action" value = "search">
 <h2>教科書検索</h2>
+<<<<<<< HEAD
+<input type="text" size="33" name="bookname" cols="50">
+<select name="bookname">
+=======
 <input type="text" name="bookname" cols="50">
 <select name="check">
+>>>>>>> 32d451f9dbf6788955b49b8d5b6d8e6d90d42e81
 <option value="全て">全て</option>
 <option value="新品">新品</option>
 <option value="中古">中古</option>
