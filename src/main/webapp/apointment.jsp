@@ -7,6 +7,7 @@
 <title>受け取り日時予約</title>
 </head>
 <body>
+<form action = "/team_dev_merukaru/ItemServlet" method = "post">
 <h2>
 受け取り日時予約
 </h2><br><br>
@@ -76,6 +77,7 @@
 </select>
 <br><br>
 
-<button>予約</button>
+<button name = "action" value = "res">予約</button>
+</form>
 </body>
 </html>

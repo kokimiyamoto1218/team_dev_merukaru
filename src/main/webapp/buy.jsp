@@ -22,7 +22,7 @@ th {
 </head>
 <body>
 
-	<form>
+	<form action = "/team_dev_merukaru/ItemServlet" method = "post">
 		<table id="outer">
 			<tr>
 				<td>
@@ -50,8 +50,8 @@ th {
 			</tr>
 			<tr>
 				<td>
-					<button>
-						<a href="Servlet">購入</a>
+					<button name = "action" value = "apointment">
+						購入
 					</button>
 				</td>
 			</tr>

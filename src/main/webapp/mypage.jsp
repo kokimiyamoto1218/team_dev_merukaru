@@ -11,11 +11,11 @@
 
 <p><a href="/team_dev_merukaru/SystemServlet?action=login">一覧表示に戻る</a></p><br>
 <h2>マイページ</h2>
-<p><a href="/team_dev_merukaru/SystemServlet?action=info">会員情報照会</a></p>
+<p><a href="/team_dev_merukaru/ItemServlet?action=info">会員情報照会</a></p>
 
-<p><a href="/team_dev_merukaru/SystemServlet?action=shistory">出品履歴・取り消し</a></p>
+<p><a href="/team_dev_merukaru/ItemServlet?action=shistory">出品履歴・取り消し</a></p>
 
-<p><a href="/team_dev_merukaru/SystemServlet?action=bhistory">購入履歴</a></p>
+<p><a href="/team_dev_merukaru/ItemServlet?action=bhistory">購入履歴</a></p>
 
 <p><a href="/team_dev_merukaru/SystemServlet?action=logout">ログアウト</a></p>
 

@@ -66,13 +66,18 @@ public class ItemServlet extends HttpServlet {
 				 //マイページ→会員情報照会ページ
 					gotoPage(request, response, "/info.jsp");
 			 }
+			 else if(action.equals("res")) {
+				 //受け取り予約→一覧ページ
+					gotoPage(request, response, "/itemlist.jsp");
+			 }
+			 else if(action.equals("apointment")) {
+				 //出品→一覧ページ
+					gotoPage(request, response, "/apointment.jsp");
+			 }
 			 else if(action.equals("cinfo")) {
 				 //会員情報照会→会員情報変更ページ
 					gotoPage(request, response, "/changeinfo.jsp");
 			 }
-			 
-			 
-			 
 			
 			
 		} catch (Exception e) {		//DAOが完成次第DAOExceptionに変更

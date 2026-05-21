@@ -8,7 +8,7 @@
 <title>出品</title>
 </head>
 <body>
-<form action = "/team_dev_merukaru/SystemServlet">
+<form action = "/team_dev_merukaru/ItemServlet">
 <p><a href="/team_dev_merukaru/SystemServlet?action=login">一覧表示に戻る</a></p><br><br>
 <h2>出品フォーム</h2>
 教科書名<br>
