@@ -59,14 +59,15 @@
 			<th>傷状態・コメント</th>
 			<th></th>
 		</tr>
-
+<c:forEach items="${showitem}" var="showitem">
 		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td>${showitem.neworused}</td>
+			<td>${showitem.product_name}</td>
+			<td>${showitem.price}</td>
+			<td>${showitem.condition}</td>
 			<td><a href="/team_dev_merukaru/SystemServlet?action=buy">購入</a></td>
 		</tr>
+</c:forEach>
 
 
 	</table>
