@@ -16,14 +16,9 @@
 金額<br>
 <input type="text" pass="pass" cols="20"><br>
 
-教科書状態<br>
-<input type="checkbox" name="lang" value="未使用">未使用
-<input type="checkbox" name="lang" value="中古">中古<br>
-<input type="checkbox" name="lang" value="傷あり">傷あり
-<input type="checkbox" name="lang" value="書き込みあり">書き込みあり<br>
 
-コメント<br>
-<input type="text" pass="pass" cols="50">
+
+
 <p><button name = "action" value = "seikyousale">出品</button></p>
 </form>
 </body>
