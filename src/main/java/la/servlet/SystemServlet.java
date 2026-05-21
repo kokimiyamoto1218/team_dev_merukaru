@@ -56,44 +56,7 @@ public class SystemServlet extends HttpServlet {
 				 
 			 }
 			 
-			 ////////一覧システム
 			 
-			 else if(action.equals("mypage")) {
-				 //一覧→マイページ
-					gotoPage(request, response, "/mypage.jsp");
-			 }
-			 else if(action.equals("sale")) {
-				 //一覧→出品ページ
-					gotoPage(request, response, "/sale.jsp");
-			 }
-			 else if(action.equals("search")) {
-				 //一覧検索→検索結果表示
-					gotoPage(request, response, "/itemlist.jsp");
-			 }
-			 else if(action.equals("go")) {
-				 //出品→一覧ページ
-					gotoPage(request, response, "/itemlist.jsp");
-			 }
-			 else if(action.equals("buy")) {
-				 //購入→購入内容確認ページ
-					gotoPage(request, response, "/buy.jsp");
-			 }
-			 else if(action.equals("bhistory")) {
-				//マイページ→購入履歴ページ
-					gotoPage(request, response, "/boughthistory.jsp");
-			 }
-			 else if(action.equals("shistory")) {
-				//マイページ→出品履歴ページ
-					gotoPage(request, response, "/salehistory.jsp");
-			 }
-			 else if(action.equals("info")) {
-				 //マイページ→会員情報照会ページ
-					gotoPage(request, response, "/info.jsp");
-			 }
-			 else if(action.equals("cinfo")) {
-				 //会員情報照会→会員情報変更ページ
-					gotoPage(request, response, "/changeinfo.jsp");
-			 }
 			 
 			 //////生協システム
 			 
