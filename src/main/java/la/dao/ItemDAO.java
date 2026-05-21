@@ -12,7 +12,7 @@ import la.bean.ItemBean;
 
 public class ItemDAO {
 	// URL、ユーザ名、パスワードの準備
-	private String url = "jdbc:postgresql:sample";
+	private String url = "jdbc:postgresql:group7";
 	private String user = "student";
 	private String pass = "himitu";
 	
@@ -28,7 +28,7 @@ public class ItemDAO {
 
 	public List<ItemBean> findAll() throws DAOException {
 		// SQL文の作成
-		String sql = "SELECT * FROM item ORDER BY code";
+		String sql = "SELECT * FROM sale ORDER BY product_id";
 		
 		try (// データベースへの接続
 			 Connection con = DriverManager.getConnection(url, user, pass);
@@ -39,11 +39,11 @@ public class ItemDAO {
 			// 結果の取得
 			List<ItemBean> list = new ArrayList<ItemBean>();
 			while (rs.next()) {
-				int code = rs.getInt("code");
-				int catecode = rs.getInt("category_code");
-				String name = rs.getString("name");
+				String neworused = rs.getString("neworused");
+				String  product_name = rs.getString("product_name");
+				String condition = rs.getString("condition");
 				int price = rs.getInt("price");
-				ItemBean bean = new ItemBean(code,catecode, name, price);
+				ItemBean bean = new ItemBean(neworused,product_name,price,condition);
 				list.add(bean);
 			}
 			// 商品一覧をListとして返す
