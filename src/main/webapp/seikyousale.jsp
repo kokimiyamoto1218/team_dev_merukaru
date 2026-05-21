@@ -8,6 +8,11 @@
 <title>出品</title>
 </head>
 <body>
+<table>
+		<tr>
+			<td>
+
+
 <form action = "/team_dev_merukaru/SystemServlet" method = "post">
 <p><a href="/team_dev_merukaru/SystemServlet?action=slogin">一覧表示に戻る</a></p><br><br>
 <h2>出品フォーム</h2>
