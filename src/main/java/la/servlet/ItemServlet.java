@@ -86,7 +86,10 @@ public class ItemServlet extends HttpServlet {
 					gotoPage(request, response, "/salehistory.jsp");
 			 }
 			 else if(action.equals("delete")) {
-				 //マイページ→会員情報照会ページ
+				 //取り消し→画面上削除、saleテーブル削除
+				 int product_id = Integer.parseInt(request.getParameter("pid"));
+				 System.out.println(product_id);
+				 dao.deleteSalehistory(product_id);
 				 
 				 List<SaleHistoryBean> list = dao.findMysale();
 				 

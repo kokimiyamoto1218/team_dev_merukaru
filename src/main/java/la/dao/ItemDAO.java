@@ -123,6 +123,28 @@ public class ItemDAO {
 			throw new DAOException("レコードの操作に失敗しました。");
 		} 
 	}
+	public int deleteSalehistory(int pid) throws DAOException {
+		// SQL文の作成
+		String sql = "DELETE FROM salehistory WHERE product_id = ?";
+		String sql2 = "DELETE FROM sale WHERE product_id = ?";
+		
+		try (// データベースへの接続
+			 Connection con = DriverManager.getConnection(url, user, pass);
+			 // PreparedStatementオブジェクトの取得
+			 PreparedStatement st = con.prepareStatement(sql);
+			 PreparedStatement st2 = con.prepareStatement(sql2);) {
+			// 商品コードの指定
+			st.setInt(1, pid);
+			st2.setInt(1, pid);
+			// SQLの実行
+			int rows = st.executeUpdate();
+			int rows2 = st2.executeUpdate();
+			return rows + rows2;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの操作に失敗しました。");
+		}
+	}
 //	public int addSaleistory(int id,String name, int sale_id, int price) throws DAOException {
 //		// SQL文の作成
 //		String sql = "INSERT INTO salehistory(product_id, product_name,sale_id,price) VALUES( ?, ?, ?, ?)";

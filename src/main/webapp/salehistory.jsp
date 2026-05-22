@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
@@ -13,7 +13,7 @@
 <br><br><br>
 
 <h2>出品履歴</h2>
-<form action = "/team_dev_merukaru/SystemServlet" method = "post">
+
 <table border="1">
 <tr><th>教科書名</th><th>金額</th><td></td></tr>
 <c:forEach items="${showitem}" var="showitems">
@@ -21,14 +21,17 @@
         <td>${showitems.productName}</td>
         <td>${showitems.price}</td>
         <td>
+        <form action = "/team_dev_merukaru/ItemServlet" method = "post">
             <button name="action" value="delete">
                 取り消し
             </button>
+            <input type = "hidden" name = "pid" value = "${showitems.productId}">
+            </form>
         </td>
     </tr>
 </c:forEach>
 </table>
-</form>
+
 <p><a href="/team_dev_merukaru/SystemServlet?action=login">一覧表示に戻る</a></p><br><br>
 </body>
 </html>
