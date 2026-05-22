@@ -57,7 +57,7 @@ public class SystemServlet extends HttpServlet {
 			 }
 			 
 			 
-			 
+			 //////////////////
 			 //////生協システム
 			 
 			 else if(action.equals("seikyoulogin")) {
