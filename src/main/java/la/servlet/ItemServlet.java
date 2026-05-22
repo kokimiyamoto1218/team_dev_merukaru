@@ -23,7 +23,7 @@ public class ItemServlet extends HttpServlet {
 		// モデルを使って全商品を取得する
 		try {
 			request.setCharacterEncoding("UTF-8");
-			//ItemDAO dao = new ItemDAO();
+			ItemDAO dao = new ItemDAO();
 			
 			String action = request.getParameter("action");
 			//
@@ -57,8 +57,9 @@ public class ItemServlet extends HttpServlet {
 				 String nu = request.getParameter("nu");
 				 String lang = request.getParameter("lang");
 				 String comment = request.getParameter("comment");
-				 ItemDAO dao = new ItemDAO();
+
 				 dao.addItem(name, price,nu,lang,comment);
+				 
 				 System.out.println("aaa");
 				 List<ItemBean> list = dao.findAll();
 					// Listをリクエストスコープに入れてJSPへフォーワードする
@@ -75,6 +76,10 @@ public class ItemServlet extends HttpServlet {
 			 }
 			 else if(action.equals("shistory")) {
 				//マイページ→出品履歴ページ
+				 
+				 
+				 
+				 
 					gotoPage(request, response, "/salehistory.jsp");
 			 }
 			 else if(action.equals("info")) {
