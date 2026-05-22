@@ -15,7 +15,7 @@ public class ItemDAO {
 	private String url = "jdbc:postgresql:group7";
 	private String user = "student";
 	private String pass = "himitu";
-	
+
 	public ItemDAO() throws DAOException {
 		try {
 			// JDBCドライバの登録
@@ -29,25 +29,24 @@ public class ItemDAO {
 	public List<ItemBean> findAll() throws DAOException {
 		// SQL文の作成
 		String sql = "SELECT * FROM sale ORDER BY product_id";
-		
+
 		try (// データベースへの接続
-			 Connection con = DriverManager.getConnection(url, user, pass);
-			 // PreparedStatementオブジェクトの取得
-			 PreparedStatement st = con.prepareStatement(sql);
-			 // SQLの実行
-			 ResultSet rs = st.executeQuery();) {
+				Connection con = DriverManager.getConnection(url, user, pass);
+				// PreparedStatementオブジェクトの取得
+				PreparedStatement st = con.prepareStatement(sql);
+				// SQLの実行
+				ResultSet rs = st.executeQuery();) {
 			// 結果の取得
 			List<ItemBean> list = new ArrayList<ItemBean>();
 			while (rs.next()) {
-				int product_id=rs.getInt("product_id");
-				String  product_name = rs.getString("product_name");
+				int product_id = rs.getInt("product_id");
+				String product_name = rs.getString("product_name");
 				int price = rs.getInt("price");
 				String condition = rs.getString("condition");
 				String neworused = rs.getString("neworused");
-				int delete_flag =rs.getInt("delete_flag");
-				
-				
-				ItemBean bean = new ItemBean(product_id,product_name,price,condition,neworused,delete_flag);
+				int delete_flag = rs.getInt("delete_flag");
+
+				ItemBean bean = new ItemBean(product_id, product_name, price, condition, neworused, delete_flag);
 				list.add(bean);
 			}
 			// 商品一覧をListとして返す
@@ -57,14 +56,15 @@ public class ItemDAO {
 			throw new DAOException("レコードの取得に失敗しました。");
 		}
 	}
-	public int addItem(String name,int price,String nu,String lang,String comment) throws DAOException {
+
+	public int addItem(String name, int price, String nu, String lang, String comment) throws DAOException {
 		// SQL文の作成
 		String sql = "INSERT INTO sale(product_name, price,condition,neworused) VALUES( ?, ?, ?, ?)";
-		
+
 		try (// データベースへの接続
-			 Connection con = DriverManager.getConnection(url, user, pass);
-			 // PreparedStatementオブジェクトの取得
-			 PreparedStatement st = con.prepareStatement(sql);) {
+				Connection con = DriverManager.getConnection(url, user, pass);
+				// PreparedStatementオブジェクトの取得
+				PreparedStatement st = con.prepareStatement(sql);) {
 			// 商品名と値段の指定
 			st.setString(1, name);
 			st.setInt(2, price);
@@ -76,8 +76,67 @@ public class ItemDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DAOException("レコードの操作に失敗しました。");
-		} 
+		}
 	}
-	
-	
+
+	public List<ItemBean> searchBook(String name, String neworused) throws DAOException {
+		String sql = "select * from sale where 1 = 1";
+
+		// 条件の追加
+		boolean hasName = (name != null && name.length() != 0);
+		boolean hasNewOrUsed = (neworused != null && neworused.length() != 0);
+		System.out.println("neworused in seachBook:" + neworused);
+		System.out.println("hasName:" + hasName);
+		System.out.println("hasNewOrUsed:" + hasNewOrUsed);
+		if (hasName) {
+			sql += " AND product_name like ?";
+		}
+		if (hasNewOrUsed) {
+			if ("新品".equals(neworused) || "中古".equals(neworused)) {
+				sql += " AND neworused = ?";
+			}
+		}
+
+		try (// データベースへの接続
+				Connection con = DriverManager.getConnection(url, user, pass);
+				// PreparedStatementオブジェクトの取得
+				PreparedStatement st = con.prepareStatement(sql);) {
+			System.out.println(st.toString());
+			// プレースホルダの設定
+			int i = 0; // カウンタ変数
+			if (name != null && name.length() != 0) {
+				i++;
+				st.setString(i, "%" + name + "%");
+			}
+			if (neworused != null && neworused.length() != 0) {
+				if ("新品".equals(neworused) || "中古".equals(neworused)) {
+					i++;
+					st.setString(i, neworused);
+				}
+
+			}
+			System.out.println(st.toString());
+
+			try (// SQLの実行
+					ResultSet rs = st.executeQuery();) {
+				// 結果の取得および表示
+				List<ItemBean> list = new ArrayList<ItemBean>();
+				while (rs.next()) {
+					// ItemBeanオブジェクトを生成してリストに追加する
+					list.add(new ItemBean(0, rs.getString("product_name"), rs.getInt("price"),  rs.getString("condition"), rs.getString("neworused"), 0));
+				}
+				// 商品一覧をListとして返す
+				return list;
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw new DAOException("レコードの取得に失敗しました。");
+			}
+		} catch (
+
+		SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました。");
+		}
+
+	}
 }
