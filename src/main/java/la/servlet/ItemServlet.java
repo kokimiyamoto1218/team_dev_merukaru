@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import la.bean.ItemBean;
+import la.bean.SaleHistoryBean;
 import la.dao.ItemDAO;
 
 @WebServlet("/ItemServlet")
@@ -77,9 +78,19 @@ public class ItemServlet extends HttpServlet {
 			 else if(action.equals("shistory")) {
 				//マイページ→出品履歴ページ
 				 
+				 List<SaleHistoryBean> list = dao.findMysale();
+				 
+				 request.setAttribute("showitem", list);
 				 
 				 
+					gotoPage(request, response, "/salehistory.jsp");
+			 }
+			 else if(action.equals("delete")) {
+				 //マイページ→会員情報照会ページ
 				 
+				 List<SaleHistoryBean> list = dao.findMysale();
+				 
+				 request.setAttribute("showitem", list);
 					gotoPage(request, response, "/salehistory.jsp");
 			 }
 			 else if(action.equals("info")) {

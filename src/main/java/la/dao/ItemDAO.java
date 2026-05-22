@@ -5,11 +5,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import la.bean.ItemBean;
+import la.bean.SaleHistoryBean;
 
 public class ItemDAO {
 	// URL、ユーザ名、パスワードの準備
@@ -49,6 +49,34 @@ public class ItemDAO {
 				
 				
 				ItemBean bean = new ItemBean(product_id,product_name,price,condition,neworused,delete_flag);
+				list.add(bean);
+			}
+			// 商品一覧をListとして返す
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました。");
+		}
+	}
+	public List<SaleHistoryBean> findMysale() throws DAOException {
+		// SQL文の作成
+		String sql = "SELECT * FROM salehistory ORDER BY product_id";
+		
+		try (// データベースへの接続
+			 Connection con = DriverManager.getConnection(url, user, pass);
+			 // PreparedStatementオブジェクトの取得
+			 PreparedStatement st = con.prepareStatement(sql);
+			 // SQLの実行
+			 ResultSet rs = st.executeQuery();) {
+			// 結果の取得
+			List<SaleHistoryBean> list = new ArrayList<SaleHistoryBean>();
+			while (rs.next()) {
+				int product_id=rs.getInt("product_id");
+				String  product_name = rs.getString("product_name");
+				int price = rs.getInt("price");
+				int sale_id =rs.getInt(1);
+				
+				SaleHistoryBean bean = new SaleHistoryBean(product_id, product_name, sale_id, price);
 				list.add(bean);
 			}
 			// 商品一覧をListとして返す
@@ -126,67 +154,7 @@ public class ItemDAO {
 //			throw new DAOException("レコードの操作に失敗しました。");
 //		} 
 //	}
-	public int addSaleistory(int id,String name, int sale_id, int price) throws DAOException {
-		// SQL文の作成
-		String sql = "INSERT INTO salehistory(product_id, product_name,sale_id,price)  VALUES( SELECT product_id FROM sale, ?, ?, ?)";
-		
-		
-		try (// データベースへの接続
-			 Connection con = DriverManager.getConnection(url, user, pass);
-			 // PreparedStatementオブジェクトの取得
-			 PreparedStatement st = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);) {
-			// 商品名と値段の指定
-			st.setInt(1, id);
-			st.setString(2, name);
-			st.setInt(3, sale_id);
-			st.setInt(4, price);
-			// SQLの実行
-			int rows = st.executeUpdate();
-			ResultSet rs = st.getGeneratedKeys();
-			int pid = 0;
-			while(rs.next()) {
-				pid = rs.getInt(1);
-			}
-			
-			
-			
-			
-			return rows;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new DAOException("レコードの操作に失敗しました。");
-		} 
-	}
 	
-	public List<ItemBean> findmysale() throws DAOException {
-		// SQL文の作成
-		String sql = "SELECT * FROM sale ORDER BY product_id";
-		
-		try (// データベースへの接続
-			 Connection con = DriverManager.getConnection(url, user, pass);
-			 // PreparedStatementオブジェクトの取得
-			 PreparedStatement st = con.prepareStatement(sql);
-			 // SQLの実行
-			 ResultSet rs = st.executeQuery();) {
-			// 結果の取得
-			List<ItemBean> list = new ArrayList<ItemBean>();
-			while (rs.next()) {
-				int product_id=rs.getInt("product_id");
-				String  product_name = rs.getString("product_name");
-				int price = rs.getInt("price");
-				String condition = rs.getString("condition");
-				String neworused = rs.getString("neworused");
-				int delete_flag =rs.getInt("delete_flag");
-				
-				
-				ItemBean bean = new ItemBean(product_id,product_name,price,condition,neworused,delete_flag);
-				list.add(bean);
-			}
-			// 商品一覧をListとして返す
-			return list;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new DAOException("レコードの取得に失敗しました。");
-		}
-	}
+	
+	
 }
