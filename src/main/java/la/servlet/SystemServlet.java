@@ -66,10 +66,19 @@ public class SystemServlet extends HttpServlet {
 			 }
 			 else if(action.equals("slogin")) {
 				 //生協ログイン→生協一覧
+				 
+				 List<ItemBean> list = dao.findAll();
+				 request.setAttribute("showitem", list);
 					gotoPage(request, response, "/seikyouitemlist.jsp");
 			 }
 			 else if(action.equals("ssearch")) {
 				 //生協検索→検索結果表示
+				 String name = request.getParameter("bookname");
+				 String neworused = request.getParameter("check");
+				 System.out.println("neworused:" + neworused);
+				 
+				 List<ItemBean> list = dao.searchBook(name, neworused);
+				 request.setAttribute("showitem", list);
 					gotoPage(request, response, "/seikyouitemlist.jsp");
 			 }
 			 else if(action.equals("ssale")) {
@@ -78,6 +87,41 @@ public class SystemServlet extends HttpServlet {
 			 }
 			 else if(action.equals("seikyousale")) {
 				 //生協出品→一覧更新、画面遷移
+				 
+				 String name = request.getParameter("name");
+				 int price = Integer.parseInt(request.getParameter("price"));
+				 String nu = request.getParameter("nu");
+				 String lang = request.getParameter("lang");
+				 String comment = request.getParameter("comment");
+				String condition = "";
+				 
+				 if(lang == null) {
+					 condition = comment;
+				 }
+				 else if(comment.length() == 0 && comment.isEmpty()) {
+					 condition = lang;
+				 }
+				 else if(comment.length() != 0) {
+					 condition = lang + ":" + comment;
+				 }
+
+
+				 dao.addItem(name, price,nu,lang,comment,condition);
+				 System.out.println("add");
+				 List<ItemBean> list = dao.findAll();
+					// Listをリクエストスコープに入れてJSPへフォーワードする
+					request.setAttribute("showitem", list);
+					gotoPage(request, response, "/seikyouitemlist.jsp");
+			 }
+			 else if(action.equals("sdelete")) {
+				 //生協削除ボタン→一覧削除、画面更新
+				 int product_id = Integer.parseInt(request.getParameter("pid"));
+				 System.out.println(product_id);
+				 dao.deleteSalehistory(product_id);
+				 
+				 List<ItemBean> list = dao.findAll();
+				 
+				 request.setAttribute("showitem", list);
 					gotoPage(request, response, "/seikyouitemlist.jsp");
 			 }
 			 

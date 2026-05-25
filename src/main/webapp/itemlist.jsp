@@ -62,13 +62,16 @@
 			<th></th>
 		</tr>
 <c:forEach items="${showitem}" var="showitems">
+<form action = "/team_dev_merukaru/ItemServlet" method = "post">
 		<tr>
 			<td>${showitems.neworused}</td>
 			<td>${showitems.name}</td>
 			<td>${showitems.price}</td>
 			<td>${showitems.condition}</td>
-			<td><a href="/team_dev_merukaru/ItemServlet?action=buy">購入</a></td>
+			<td><button>購入</button><input type = "hidden" name = "id" value = "${showitems.code }"></form></td>
+			
 		</tr>
+
 </c:forEach>
 
 

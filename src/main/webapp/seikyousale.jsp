@@ -20,9 +20,9 @@
 教科書名<br>
 <input type="text" name="name" cols="20"><br>
 金額<br>
-<input type="text" pass="pass" cols="20"><br>
+<input type="text" name="price" cols="20"><br>
 
-
+<input type="hidden" name="nu" value="新品">
 
 
 <p><button name = "action" value = "seikyousale">出品</button></p>
