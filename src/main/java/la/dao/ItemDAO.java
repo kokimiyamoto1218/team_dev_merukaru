@@ -15,7 +15,7 @@ public class ItemDAO {
 	private String url = "jdbc:postgresql:group7";
 	private String user = "student";
 	private String pass = "himitu";
-	
+
 	public ItemDAO() throws DAOException {
 		try {
 			// JDBCドライバの登録
@@ -29,25 +29,24 @@ public class ItemDAO {
 	public List<ItemBean> findAll() throws DAOException {
 		// SQL文の作成
 		String sql = "SELECT * FROM sale ORDER BY product_id";
-		
+
 		try (// データベースへの接続
-			 Connection con = DriverManager.getConnection(url, user, pass);
-			 // PreparedStatementオブジェクトの取得
-			 PreparedStatement st = con.prepareStatement(sql);
-			 // SQLの実行
-			 ResultSet rs = st.executeQuery();) {
+				Connection con = DriverManager.getConnection(url, user, pass);
+				// PreparedStatementオブジェクトの取得
+				PreparedStatement st = con.prepareStatement(sql);
+				// SQLの実行
+				ResultSet rs = st.executeQuery();) {
 			// 結果の取得
 			List<ItemBean> list = new ArrayList<ItemBean>();
 			while (rs.next()) {
-				int product_id=rs.getInt("product_id");
-				String  product_name = rs.getString("product_name");
+				int product_id = rs.getInt("product_id");
+				String product_name = rs.getString("product_name");
 				int price = rs.getInt("price");
 				String condition = rs.getString("condition");
 				String neworused = rs.getString("neworused");
-				int delete_flag =rs.getInt("delete_flag");
-				
-				
-				ItemBean bean = new ItemBean(product_id,product_name,price,condition,neworused,delete_flag);
+				int delete_flag = rs.getInt("delete_flag");
+
+				ItemBean bean = new ItemBean(product_id, product_name, price, condition, neworused, delete_flag);
 				list.add(bean);
 			}
 			// 商品一覧をListとして返す
@@ -57,14 +56,15 @@ public class ItemDAO {
 			throw new DAOException("レコードの取得に失敗しました。");
 		}
 	}
-	public int addItem(String name,int price,String nu,String lang,String comment) throws DAOException {
+
+	public int addItem(String name, int price, String nu, String lang, String comment) throws DAOException {
 		// SQL文の作成
 		String sql = "INSERT INTO sale(product_name, price,condition,neworused) VALUES( ?, ?, ?, ?)";
-		
+
 		try (// データベースへの接続
-			 Connection con = DriverManager.getConnection(url, user, pass);
-			 // PreparedStatementオブジェクトの取得
-			 PreparedStatement st = con.prepareStatement(sql);) {
+				Connection con = DriverManager.getConnection(url, user, pass);
+				// PreparedStatementオブジェクトの取得
+				PreparedStatement st = con.prepareStatement(sql);) {
 			// 商品名と値段の指定
 			st.setString(1, name);
 			st.setInt(2, price);
@@ -76,8 +76,39 @@ public class ItemDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DAOException("レコードの操作に失敗しました。");
-		} 
+		}
 	}
-	
+
+	public int slogin(String name, String password) throws DAOException {
+		// SQL文の作成
+				String sql = "SELECT * FROM member where member_name = ? and pasword = ?";
+				int result = 0;
+				
+				try (// データベースへの接続
+					 Connection con = DriverManager.getConnection(url, user, pass);
+					 // PreparedStatementオブジェクトの取得
+					 PreparedStatement st = con.prepareStatement(sql);) {
+					st.setString(1, name);
+					st.setString(2, password);
+					
+					try (// SQLの実行
+							 ResultSet rs = st.executeQuery();) {
+						// 判定ロジックをここに書く
+						
+						if (rs.next()) {
+			                // ログイン成功なら「1」をセット
+			                result = 1;                           
+			            }
+						
+						return result;
+					} catch (SQLException e) {
+						e.printStackTrace();
+						throw new DAOException("レコードの取得に失敗しました。");
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+					throw new DAOException("レコードの取得に失敗しました。");
+				}
+	}
 	
 }

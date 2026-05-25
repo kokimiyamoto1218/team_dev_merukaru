@@ -18,13 +18,14 @@ public class SystemServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+
 		// パラメータの解析は特になし
 		
 		// モデルを使って全商品を取得する
 		try {
-			request.setCharacterEncoding("UTF-8");
-			//ItemDAO dao = new ItemDAO();
 			ItemDAO dao = new ItemDAO();
+			
 			
 			String action = request.getParameter("action");
 			//DAOオブジェクト生成
@@ -65,12 +66,19 @@ public class SystemServlet extends HttpServlet {
 					gotoPage(request, response, "/seikyoulogin.jsp");
 			 }
 			 else if(action.equals("slogin")) {
-				 //生協ログイン→生協一覧
-					gotoPage(request, response, "/seikyouitemlist.jsp");
-			 }
-			 else if(action.equals("ssearch")) {
-				 //生協検索→検索結果表示
-					gotoPage(request, response, "/seikyouitemlist.jsp");
+				 String name = request.getParameter("name");
+				 String pass = request.getParameter("pass");
+				 int id = dao.slogin(name, pass);
+				 //if分でログイン成功・失敗を判定　0行なら失敗、１行以上なら成功
+				 if(id >= 1) {
+					 gotoPage(request, response, "/ItemServlet?action=drgonsearch");
+				 }
+				//失敗の場合ログイン画面を再表示し、ログインできなかった理由を表示する	 
+				 else {
+					 request.setAttribute("message", "ユーザIDまたはパスワードが異なります");
+					 gotoPage(request, response, "/seikyoulogin.jsp"); 
+				 }
+			     
 			 }
 			 else if(action.equals("ssale")) {
 				 //生協一覧の出品→生協出品ページ
