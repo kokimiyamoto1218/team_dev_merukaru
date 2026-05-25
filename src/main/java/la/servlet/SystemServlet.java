@@ -34,16 +34,39 @@ public class SystemServlet extends HttpServlet {
 			 if(action == null) {
 				
 			// Listをリクエストスコープに入れてJSPへフォーワードする
-				 gotoPage(request,response,"/login.jsp");
+				 	gotoPage(request,response,"/login.jsp");
 			
 			}
 			 else if(action.equals("newmember")) {
-				//新規会員登録→ログインページ
-				gotoPage(request,response,"/login.jsp");
-			}
+				 String name = request.getParameter("name");
+				 String pass = request.getParameter("pass");
+				 String passcheck = request.getParameter("newpass");
+				 
+				 if(pass.length() >= 6 && pass.length() <= 16) {
+					 if(pass.equals(passcheck)) {
+						 if(name != null) {
+							 dao.addMember(name, pass);
+							//新規会員登録→ログインページ
+							 gotoPage(request,response,"/login.jsp");
+						 }else {
+							 request.setAttribute("message", "名前は１文字以上で入力してください");
+							 gotoPage(request, response, "/newmember.jsp"); 
+						 }
+					 }else	{
+						 request.setAttribute("message", "パスワードとパスワード確認用が異なります");
+						 gotoPage(request, response, "/newmember.jsp"); 
+					 }
+				}else if(pass.length() < 6 || pass.length() > 16) {
+					 request.setAttribute("message", "パスワードは６字以上16字以下で入力して下さい");
+					 gotoPage(request, response, "/newmember.jsp"); 
+				}
+					
+				 
+		}
+	
 			 else if(action.equals("logout")) {
 					//ログアウト→ログインページ
-					gotoPage(request,response,"/login.jsp");
+				 	gotoPage(request,response,"/login.jsp");
 				}
 			 else if(action.equals("new")) {
 				 //ログイン→新規会員登録ページ
@@ -53,7 +76,7 @@ public class SystemServlet extends HttpServlet {
 				 List<ItemBean> list = dao.findAll();
 				 //ログイン認証→一覧ページ
 				 request.setAttribute("showitem", list);
-				 gotoPage(request, response, "/itemlist.jsp");
+				 	gotoPage(request, response, "/itemlist.jsp");
 				 
 			 }
 			 

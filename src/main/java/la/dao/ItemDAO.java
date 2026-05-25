@@ -90,6 +90,7 @@ public class ItemDAO {
 					 PreparedStatement st = con.prepareStatement(sql);) {
 					st.setString(1, name);
 					st.setString(2, password);
+					System.out.println("setOK");
 					
 					try (// SQLの実行
 							 ResultSet rs = st.executeQuery();) {
@@ -110,5 +111,25 @@ public class ItemDAO {
 					throw new DAOException("レコードの取得に失敗しました。");
 				}
 	}
+
 	
+	public int addMember(String name, String password) throws DAOException {
+		// SQL文の作成
+		String sql = "INSERT INTO member(member_name,pasword) VALUES( ?, ?)";
+
+		try (// データベースへの接続
+				Connection con = DriverManager.getConnection(url, user, pass);
+				// PreparedStatementオブジェクトの取得
+				PreparedStatement st = con.prepareStatement(sql);) {
+			// 商品名と値段の指定
+			st.setString(1, name);
+			st.setString(2, password);
+			// SQLの実行
+			int rows = st.executeUpdate();
+			return rows;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの操作に失敗しました。");
+		}
+	}
 }
