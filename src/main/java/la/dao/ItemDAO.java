@@ -123,7 +123,8 @@ public class ItemDAO {
 				List<ItemBean> list = new ArrayList<ItemBean>();
 				while (rs.next()) {
 					// ItemBeanオブジェクトを生成してリストに追加する
-					list.add(new ItemBean(0, rs.getString("product_name"), rs.getInt("price"),  rs.getString("condition"), rs.getString("neworused"), 0));
+					list.add(new ItemBean(0, rs.getString("product_name"), rs.getInt("price"),
+							rs.getString("condition"), rs.getString("neworused"), 0));
 				}
 				// 商品一覧をListとして返す
 				return list;
@@ -137,6 +138,58 @@ public class ItemDAO {
 			e.printStackTrace();
 			throw new DAOException("レコードの取得に失敗しました。");
 		}
+	}
 
+	public int slogin(String name, String password) throws DAOException {
+		// SQL文の作成
+		String sql = "SELECT * FROM member where member_name = ? and pasword = ?";
+		int result = 0;
+
+		try (// データベースへの接続
+				Connection con = DriverManager.getConnection(url, user, pass);
+				// PreparedStatementオブジェクトの取得
+				PreparedStatement st = con.prepareStatement(sql);) {
+			st.setString(1, name);
+			st.setString(2, password);
+			System.out.println("setOK");
+
+			try (// SQLの実行
+					ResultSet rs = st.executeQuery();) {
+				// 判定ロジックをここに書く
+
+				if (rs.next()) {
+					// ログイン成功なら「1」をセット
+					result = 1;
+				}
+
+				return result;
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw new DAOException("レコードの取得に失敗しました。");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました。");
+		}
+	}
+
+	public int addMember(String name, String password) throws DAOException {
+		// SQL文の作成
+		String sql = "INSERT INTO member(member_name,pasword) VALUES( ?, ?)";
+
+		try (// データベースへの接続
+				Connection con = DriverManager.getConnection(url, user, pass);
+				// PreparedStatementオブジェクトの取得
+				PreparedStatement st = con.prepareStatement(sql);) {
+			// 商品名と値段の指定
+			st.setString(1, name);
+			st.setString(2, password);
+			// SQLの実行
+			int rows = st.executeUpdate();
+			return rows;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの操作に失敗しました。");
+		}
 	}
 }
