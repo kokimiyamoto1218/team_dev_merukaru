@@ -36,11 +36,11 @@
 
 
 
-		<input type="text" size="33" name="bookname" cols="50"> <select
-			name="check">
+		<input type="text" size="33" name="bookname" cols="50">
+		 <select name="check">
 			<option value="全て">全て</option>
 			<option value="新品">新品</option>
-			<option value="中古">中古</option>
+			<option  value="中古">中古</option>
 		</select>
 		<button>検索</button>
 	</form>
@@ -49,9 +49,6 @@
 		</tr>
 	</table>
 
-	
-
-	
 <div class="parent">
 	<table border="1">
 		<tr>
@@ -62,13 +59,22 @@
 			<th></th>
 		</tr>
 <c:forEach items="${showitem}" var="showitems">
+	<form action="/team_dev_merukaru/ItemServlet" method="get">	
 		<tr>
 			<td>${showitems.neworused}</td>
 			<td>${showitems.name}</td>
 			<td>${showitems.price}</td>
 			<td>${showitems.condition}</td>
-			<td><a href="/team_dev_merukaru/ItemServlet?action=buy">購入</a></td>
+			<input type="hidden" name="action" value="buy">
+			<input type="hidden" name="neworused" value="${showitems.neworused}">
+			<input type="hidden" name="code" value="${showitems.code}">
+			<input type="hidden" name="name" value="${showitems.name}">
+			<input type="hidden" name="price" value="${showitems.price}"> 
+			<input type="hidden" name="condition" value="${showitems.condition}"> 
+			<td><button>購入</button></form></td>
+			</form>
 		</tr>
+		
 </c:forEach>
 
 

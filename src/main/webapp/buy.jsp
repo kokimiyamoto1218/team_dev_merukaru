@@ -40,17 +40,19 @@ th {
 							<th>傷状態・コメント</th>
 						</tr>
 						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td>
+							<td>${neworused}</td>
+							<td>${name}</td>
+							<td>${price}</td>
+							<td>${condition}</td>
 						</tr>
 					</table>
 				</td>
 			</tr>
 			<tr>
 				<td>
+				<input type="hidden" name="code" value="${product_id}">
+				<input type="hidden" name="name" value="${name}">
+				<input type="hidden" name="price" value="${price}"> 
 					<button name = "action" value = "apointment">
 						購入
 					</button>
