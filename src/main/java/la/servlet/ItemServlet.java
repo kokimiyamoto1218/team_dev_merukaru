@@ -48,7 +48,33 @@ public class ItemServlet extends HttpServlet {
 			 }
 			 else if(action.equals("search")) {
 				 //一覧検索→検索結果表示
+				 ItemDAO dao = new ItemDAO();
+				 String name = request.getParameter("bookname");
+				 String neworused = request.getParameter("check");
+				 System.out.println("neworused:" + neworused);
+				 
+				 List<ItemBean> list = dao.searchBook(name, neworused);
+				 request.setAttribute("showitem", list);
+				 
+				 
 					gotoPage(request, response, "/itemlist.jsp");
+					
+			 }	else if(action.equals("drgonsearch")) {
+						
+					
+					 ItemDAO dao = new ItemDAO();
+					
+					
+					 
+					 List<ItemBean> list = dao.findAll();
+					 request.setAttribute("showitem", list);
+					 
+					 
+						gotoPage(request, response, "/sekyouitemlist.jsp");
+					
+					
+					
+					
 			 }
 			 else if(action.equals("go")) {
 				 //出品→一覧ページ
