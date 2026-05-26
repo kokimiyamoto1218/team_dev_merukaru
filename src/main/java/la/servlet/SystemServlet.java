@@ -78,6 +78,11 @@ public class SystemServlet extends HttpServlet {
 			}
 			 else if(action.equals("logout")) {
 					//ログアウト→ログインページ
+				 HttpSession session = request.getSession();
+				    
+				    session.invalidate(); 
+				    
+				    request.setAttribute("message", "ログアウトしました。");
 					gotoPage(request,response,"/login.jsp");
 				}
 			 else if(action.equals("new")) {
@@ -105,6 +110,7 @@ public class SystemServlet extends HttpServlet {
 						// 初めてのログイン
 						session = request.getSession();
 						session.setAttribute("userId", loginUser.getId());
+						
 					}
 
 
@@ -173,6 +179,9 @@ public class SystemServlet extends HttpServlet {
 				 String lang = request.getParameter("lang");
 				 String comment = request.getParameter("comment");
 				String condition = "";
+				HttpSession session = request.getSession();
+			    Integer currentUserId = (Integer) session.getAttribute("userId");
+				
 				 
 				 if(lang == null) {
 					 condition = comment;
@@ -185,7 +194,7 @@ public class SystemServlet extends HttpServlet {
 				 }
 
 
-				 dao.addItem(name, price,nu,lang,comment,condition);
+				 dao.addItem(name, price,nu,lang,comment,condition,currentUserId);
 				 System.out.println("add");
 				 List<ItemBean> list = dao.findAll();
 					// Listをリクエストスコープに入れてJSPへフォーワードする
@@ -202,6 +211,15 @@ public class SystemServlet extends HttpServlet {
 				 
 				 request.setAttribute("showitem", list);
 					gotoPage(request, response, "/seikyouitemlist.jsp");
+			 }
+			 else if(action.equals("slogout")) {
+				 HttpSession session = request.getSession();
+				    
+				    // 2. 魔法の呪文！カードをその場で消滅させる
+				    session.invalidate(); 
+				    
+				    // 3. 「ログアウトしました」というメッセージを準備する
+				    request.setAttribute("message", "ログアウトしました。");
 			 }
 			 
 			

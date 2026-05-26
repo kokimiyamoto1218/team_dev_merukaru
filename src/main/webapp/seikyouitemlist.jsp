@@ -24,7 +24,7 @@
 					<a href="/team_dev_merukaru/SystemServlet?action=ssale">出品</a>
 				</p>
 				<p>
-					<a href="/team_dev_merukaru/SystemServlet">ログアウト</a>
+					<a href="/team_dev_merukaru/SystemServlet?action=slogout">ログアウト</a>
 				</p>
 			</td>
 			<td class="custom-cell">

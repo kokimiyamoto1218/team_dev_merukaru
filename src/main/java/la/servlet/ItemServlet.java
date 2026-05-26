@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import la.bean.ItemBean;
 import la.bean.SaleHistoryBean;
@@ -21,6 +22,24 @@ public class ItemServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// パラメータの解析は特になし
+		HttpSession session = request.getSession();
+		
+		// 2. カードから会員番号（userId）を取り出す
+	    Integer currentUserId = (Integer) session.getAttribute("userId");
+
+	    // 3. ちゃんとログインしているかチェック
+	    if (currentUserId != null) {
+	        // ★大成功！別のサーブレットでも member_id（currentUserId）が使えます！
+	        System.out.println("別のサーブレットに届いたよ！会員番号は: " + currentUserId);
+	        
+	        // ここで別のDAOを呼び出したり、その人専用の処理をしたりできるよ！
+	        // ex) detailDao.getDetailList(currentUserId);
+
+	    } else {
+	        // カードに番号がない ＝ ログインしてない悪い子、または時間が経ってカードが消えちゃった人
+	        gotoPage(request, response, "/login.jsp");
+	    }
+	
 		
 		// モデルを使って全商品を取得する
 		try {
@@ -90,7 +109,7 @@ public class ItemServlet extends HttpServlet {
 				 }
 
 
-				 dao.addItem(name, price,nu,lang,comment,condition);
+				 dao.addItem(name, price,nu,lang,comment,condition,currentUserId);
 				 
 				 System.out.println("add");
 				 List<ItemBean> list = dao.findAll();
@@ -115,7 +134,7 @@ public class ItemServlet extends HttpServlet {
 					gotoPage(request, response, "/buy.jsp");
 			 }
 			 else if(action.equals("bhistory")) {;
-				 List<purchasehistoryBean> list = dao.findParcashistory();
+				 List<purchasehistoryBean> list = dao.findParcashistory(currentUserId);
 				 request.setAttribute("purchasehistory", list);
 				//マイページ→購入履歴ページ
 					gotoPage(request, response, "/boughthistory.jsp");
@@ -123,7 +142,7 @@ public class ItemServlet extends HttpServlet {
 			 else if(action.equals("shistory")) {
 				//マイページ→出品履歴ページ
 				 
-				 List<SaleHistoryBean> list = dao.findMysale();
+				 List<SaleHistoryBean> list = dao.findMysale(currentUserId);
 				 
 				 request.setAttribute("showitem", list);
 				 
@@ -136,7 +155,7 @@ public class ItemServlet extends HttpServlet {
 				 System.out.println(product_id);
 				 dao.deleteSalehistory(product_id);
 				 
-				 List<SaleHistoryBean> list = dao.findMysale();
+				 List<SaleHistoryBean> list = dao.findMysale(currentUserId);
 				 
 				 request.setAttribute("showitem", list);
 					gotoPage(request, response, "/salehistory.jsp");
@@ -163,7 +182,7 @@ public class ItemServlet extends HttpServlet {
 				 int product_id = Integer.parseInt(request.getParameter("code"));
 				 String product_name = request.getParameter("name");
 				 int price = Integer.parseInt(request.getParameter("price")); 
-				 dao.addPurcahase(product_id,product_name,price);
+				 dao.addPurcahase(product_id,product_name,price,currentUserId);
 				 request.setAttribute("product_id", product_id);
 				 
 					gotoPage(request, response, "/apointment.jsp");

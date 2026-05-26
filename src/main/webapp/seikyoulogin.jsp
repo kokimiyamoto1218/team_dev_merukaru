@@ -15,7 +15,7 @@
 名前<br>
 <input type="text" name="name" cols="20"><br>
 Pass<br>
-<input type="pass" name="pass" cols="20"><br><br>
+<input type="password" name="pass" cols="20"><br><br>
 <input type="hidden"  name = "action" value = "slogin">
 <button>ログイン</button><a href="/team_dev_merukaru/SystemServlet">一般の方はこちら</a>
 </form>

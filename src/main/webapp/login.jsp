@@ -15,7 +15,7 @@
 名前<br>
 <input type="text" name="name" cols="20"><br>
 Pass<br>
-<input type="text" name="pass" cols="20"><br><br>
+<input type="password" name="pass" cols="20"><br><br>
 <button name = "action" value = "login">ログイン</button><br>
 </form>
 <p><a href="/team_dev_merukaru/SystemServlet?action=new">新規会員登録</a> <a href="/team_dev_merukaru/SystemServlet?action=seikyoulogin">生協の方はこちら</a></p>
