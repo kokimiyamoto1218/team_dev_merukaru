@@ -139,7 +139,7 @@ public class SystemServlet extends HttpServlet {
 				 //生協ログインページ遷移
 					gotoPage(request, response, "/seikyoulogin.jsp");
 			 }
-			 else if(action.equals("slogin")) {
+			 else if(action.equals("sdragon")) {
 				 String name = request.getParameter("name");
 				 String pass = request.getParameter("pass");
 				    //int id = dao.slogin(name, pass);
@@ -147,8 +147,12 @@ public class SystemServlet extends HttpServlet {
 				    // if文でログイン成功・失敗を判定
 				    if(name.equals("Doragon")&&pass.equals("akamaru12")) {
 				        // 【修正】別のサーブレットへパラメータ付きで遷移させる場合はリダイレクトを使う
-				        response.sendRedirect(request.getContextPath() + "/ItemServlet?action=drgonsearch");
-				        return; // 処理をここで確実に終了させる
+				    	ItemDAO dao1 = new ItemDAO();
+
+						List<ItemBean> list = dao1.findAll();
+						request.setAttribute("showitem", list);
+
+						gotoPage(request, response, "/seikyouitemlist.jsp");
 				    }
 				    // 失敗の場合ログイン画面を再表示し、ログインできなかった理由を表示する     
 				    else {

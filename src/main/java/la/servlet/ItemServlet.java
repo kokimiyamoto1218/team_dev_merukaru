@@ -79,16 +79,7 @@ public class ItemServlet extends HttpServlet {
 
 					gotoPage(request, response, "/itemlist.jsp");
 
-			} else if (action.equals("drgonsearch")) {
-
-					ItemDAO dao1 = new ItemDAO();
-
-					List<ItemBean> list = dao1.findAll();
-					request.setAttribute("showitem", list);
-
-					gotoPage(request, response, "/seikyouitemlist.jsp");
-
-			}
+			} 
 			 else if(action.equals("go")) {
 				 //出品→一覧ページ
 				 String name = request.getParameter("name");
