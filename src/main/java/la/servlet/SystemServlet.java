@@ -48,9 +48,9 @@ public class SystemServlet extends HttpServlet {
 				        // 2. パスワードの一致をチェック
 				        if(pass.equals(passcheck)) {
 				            
-				            // 3. 名前の入力チェック（null または 空文字 の場合は else へ行く）
-				            if(name != null && !name.trim().isEmpty()) {
+				            // 3. 名前の入力チェック（null または 空文字 の場合は else へ行く 
 				                // 名前もパスワードも正しい場合のみ登録
+				        	if(name != null && !name.trim().isEmpty()) {
 				                dao.addMember(name, pass);
 				                gotoPage(request, response, "/login.jsp");
 				                return; 
@@ -73,7 +73,7 @@ public class SystemServlet extends HttpServlet {
 				    }
 				}
 	
-			 else if(action.equals("logout")) {
+			else if(action.equals("logout")) {
 					//ログアウト→ログインページ
 				 	gotoPage(request,response,"/login.jsp");
 				}
