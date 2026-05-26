@@ -48,17 +48,28 @@ public class ItemServlet extends HttpServlet {
 				 //一覧→出品ページ
 					gotoPage(request, response, "/sale.jsp");
 			 }
-			 else if(action.equals("search")) {
-				 //一覧検索→検索結果表示
-				 
-				 String name = request.getParameter("bookname");
-				 String neworused = request.getParameter("check");
-				 System.out.println("neworused:" + neworused);
-				 
-				 List<ItemBean> list = dao.searchBook(name, neworused);
-				 request.setAttribute("showitem", list);
+			 else if (action.equals("search")) {
+					//一覧検索→検索結果表示
+					ItemDAO dao1 = new ItemDAO();
+					String name = request.getParameter("bookname");
+					String neworused = request.getParameter("check");
+					System.out.println("neworused:" + neworused);
+
+					List<ItemBean> list = dao1.searchBook(name, neworused);
+					request.setAttribute("showitem", list);
+
 					gotoPage(request, response, "/itemlist.jsp");
-			 }
+
+			} else if (action.equals("drgonsearch")) {
+
+					ItemDAO dao1 = new ItemDAO();
+
+					List<ItemBean> list = dao1.findAll();
+					request.setAttribute("showitem", list);
+
+					gotoPage(request, response, "/seikyouitemlist.jsp");
+
+			}
 			 else if(action.equals("go")) {
 				 //出品→一覧ページ
 				 String name = request.getParameter("name");
