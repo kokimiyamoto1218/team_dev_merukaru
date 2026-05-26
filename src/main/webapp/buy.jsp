@@ -50,6 +50,7 @@ th {
 			</tr>
 			<tr>
 				<td>
+				<input type="hidden" name="id" value="${sessionScope.userId}">
 				<input type="hidden" name="code" value="${product_id}">
 				<input type="hidden" name="name" value="${name}">
 				<input type="hidden" name="price" value="${price}"> 

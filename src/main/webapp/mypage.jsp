@@ -16,7 +16,7 @@
 
 <p align="center"><a href="/team_dev_merukaru/ItemServlet?action=shistory">出品履歴・取り消し</a></p>
 
-<p align="center"><a href="/team_dev_merukaru/ItemServlet?action=bhistory">購入履歴</a></p>
+<p align="center"><a href="/team_dev_merukaru/ItemServlet?action=bhistory&id=${sessionScope.userId}">購入履歴</a></p>
 
 <p align="center"><a href="/team_dev_merukaru/SystemServlet?action=logout">ログアウト</a></p><br><br>
 <p><a href="/team_dev_merukaru/SystemServlet?action=back">一覧表示に戻る</a></p>

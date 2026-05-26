@@ -269,8 +269,9 @@ public class ItemDAO {
 	}
 
 	}
-
 	public int addPurcahase(int product_id, String product_name, int price, Integer id) throws DAOException {
+
+
 		// SQL文の作成
 		String sql = "INSERT INTO purchasehistory(product_id,product_name,price,buyer_id,booking) VALUES( ?, ?, ?, ?, ?)";
 
@@ -334,34 +335,38 @@ public class ItemDAO {
 		}
 	}
 
-	public List<purchasehistoryBean> findParcashistory(Integer a) throws DAOException {
-	    // SQL文の作成
-	    String sql = "SELECT * FROM purchasehistory where buyer_id = ?";
 
-	    
-	    try (Connection con = DriverManager.getConnection(url, user, pass);
-	         PreparedStatement st = con.prepareStatement(sql);) {
-	        
-	        
-	        st.setInt(1, a);
-	        
-	       
+	
+
+	public List<purchasehistoryBean> findParcashistory(int id) throws DAOException {
+
+	    String sql = "SELECT * FROM purchasehistory WHERE buyer_id = ?";
+
+	    try (
+	        Connection con = DriverManager.getConnection(url, user, pass);
+	        PreparedStatement st = con.prepareStatement(sql);
+	    ) {
+	        st.setInt(1, id);
+
 	        try (ResultSet rs = st.executeQuery()) {
-	            
-	            // 結果の取得
-	            List<purchasehistoryBean> list = new ArrayList<purchasehistoryBean>();
+
+	            List<purchasehistoryBean> list = new ArrayList<>();
+
 	            while (rs.next()) {
 	                String product_name = rs.getString("product_name");
 	                int price = rs.getInt("price");
 	                String booking = rs.getString("booking");
 
-	                purchasehistoryBean bean = new purchasehistoryBean(product_name, price, booking);
+	                purchasehistoryBean bean =
+	                    new purchasehistoryBean(product_name, price, booking);
+
 	                list.add(bean);
 	            }
-	            // 商品一覧をListとして返す
+
 	            return list;
 	        }
-	        
+
+
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	        throw new DAOException("レコードの取得に失敗しました。");
