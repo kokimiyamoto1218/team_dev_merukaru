@@ -338,7 +338,7 @@ public class ItemDAO {
 
 	
 
-	public List<purchasehistoryBean> findParcashistory(int id) throws DAOException {
+	public List<purchasehistoryBean> findParcashistory(Integer id) throws DAOException {
 
 	    String sql = "SELECT * FROM purchasehistory WHERE buyer_id = ?";
 

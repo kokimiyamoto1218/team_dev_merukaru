@@ -222,6 +222,7 @@ public class SystemServlet extends HttpServlet {
 				    
 				    // 3. 「ログアウトしました」というメッセージを準備する
 				    request.setAttribute("message", "ログアウトしました。");
+				    gotoPage(request,response,"/login.jsp");
 			 }
 			 
 			
