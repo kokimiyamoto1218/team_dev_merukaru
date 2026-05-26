@@ -17,6 +17,13 @@ public class purchasehistoryBean implements Serializable {
 		this.booking = booking;
 		
 	}
+	
+	public purchasehistoryBean( String product_name,int price, String booking) {
+		this.product_name = product_name;
+		this.price = price;
+		this.booking = booking;
+		
+	}
 
 	public purchasehistoryBean() {
 

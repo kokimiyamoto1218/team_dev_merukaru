@@ -9,7 +9,12 @@
 <link href="all.css" rel="stylesheet">
 </head>
 <body>
+<<<<<<< HEAD
 <form action = "/team_dev_merukaru/SystemServlet" method = "post">
+=======
+<p>${message}</p>
+<form action="${pageContext.request.contextPath}/SystemServlet" method="post">
+>>>>>>> 8da541c447e44f7e198b23c5eaf211cb9dd7a0b6
 <p><a href="/team_dev_merukaru/SystemServlet">ログイン画面に戻る</a></p><br><br>
 <h2>新規会員登録</h2>
 名前<br>
