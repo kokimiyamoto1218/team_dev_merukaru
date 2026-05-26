@@ -58,6 +58,67 @@ public class ItemDAO {
 		}
 	}
 
+	public List<ItemBean> searchBook(String name, String neworused) throws DAOException {
+		String sql = "select * from sale where 1 = 1";
+
+		// 条件の追加
+		boolean hasName = (name != null && name.length() != 0);
+		boolean hasNewOrUsed = (neworused != null && neworused.length() != 0);
+		System.out.println("neworused in seachBook:" + neworused);
+		System.out.println("hasName:" + hasName);
+		System.out.println("hasNewOrUsed:" + hasNewOrUsed);
+		if (hasName) {
+			sql += " AND product_name like ?";
+		}
+		if (hasNewOrUsed) {
+			if ("新品".equals(neworused) || "中古".equals(neworused)) {
+				sql += " AND neworused = ?";
+			}
+		}
+
+		try (// データベースへの接続
+				Connection con = DriverManager.getConnection(url, user, pass);
+				// PreparedStatementオブジェクトの取得
+				PreparedStatement st = con.prepareStatement(sql);) {
+			System.out.println(st.toString());
+			// プレースホルダの設定
+			int i = 0; // カウンタ変数
+			if (name != null && name.length() != 0) {
+				i++;
+				st.setString(i, "%" + name + "%");
+			}
+			if (neworused != null && neworused.length() != 0) {
+				if ("新品".equals(neworused) || "中古".equals(neworused)) {
+					i++;
+					st.setString(i, neworused);
+				}
+
+			}
+			System.out.println(st.toString());
+
+			try (// SQLの実行
+					ResultSet rs = st.executeQuery();) {
+				// 結果の取得および表示
+				List<ItemBean> list = new ArrayList<ItemBean>();
+				while (rs.next()) {
+					// ItemBeanオブジェクトを生成してリストに追加する
+					list.add(new ItemBean(0, rs.getString("product_name"), rs.getInt("price"),
+							rs.getString("condition"), rs.getString("neworused"), 0));
+				}
+				// 商品一覧をListとして返す
+				return list;
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw new DAOException("レコードの取得に失敗しました。");
+			}
+		} catch (
+
+		SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの取得に失敗しました。");
+		}
+	}
+	
 	public int addItem(String name, int price, String nu, String lang, String comment) throws DAOException {
 		// SQL文の作成
 		String sql = "INSERT INTO sale(product_name, price,condition,neworused) VALUES( ?, ?, ?, ?)";
@@ -78,6 +139,30 @@ public class ItemDAO {
 			e.printStackTrace();
 			throw new DAOException("レコードの操作に失敗しました。");
 		}
+	}
+	
+	public int deleteItem(int product_id) throws DAOException {
+	    // 正しいDELETE文：特定のIDを持つレコードを削除する
+	    String sql = "DELETE FROM sale WHERE product_id = ?";
+	    String sql2 = "DELETE FROM salehistory WHERE product_id = ?";
+	    
+	    try (
+	        Connection con = DriverManager.getConnection(url, user, pass);
+	        PreparedStatement st = con.prepareStatement(sql);
+	        PreparedStatement st2 = con.prepareStatement(sql2);
+
+	    		) {
+	        // プレースホルダ(?)に商品IDをセット
+	        st.setInt(1, product_id);
+	        st2.setInt(1, product_id);	        
+	        // SQLの実行（削除された行数が返る）
+	        int rows = st.executeUpdate();
+	        int rows2 = st2.executeUpdate();
+	        return rows + rows2;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        throw new DAOException("レコードの操作に失敗しました。");
+	    }
 	}
 
 	public List<ItemBean> getProductid(int product_id) throws DAOException {
@@ -237,7 +322,7 @@ public class ItemDAO {
 
 	public int addMember(String name, String password) throws DAOException {
 		// SQL文の作成
-		String sql = "INSERT INTO member(member_name,pasword) VALUES( ?, ?)";
+		String sql = "INSERT INTO member(member_name,pasword) SELECT ?, ? FROM member WHERE (SELECT COUNT(*) FROM member WHERE member_name = ?) = 0";
 
 		try (// データベースへの接続
 				Connection con = DriverManager.getConnection(url, user, pass);
@@ -246,8 +331,12 @@ public class ItemDAO {
 			// 商品名と値段の指定
 			st.setString(1, name);
 			st.setString(2, password);
+			st.setString(3, name);
 			// SQLの実行
 			int rows = st.executeUpdate();
+			if(rows == 0) {
+				throw new DAOException("このユーザ名は既に登録されています");
+			}
 			return rows;
 		} catch (SQLException e) {
 			e.printStackTrace();
