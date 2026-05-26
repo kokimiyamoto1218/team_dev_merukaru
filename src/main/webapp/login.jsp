@@ -13,7 +13,7 @@
 <h2>ログイン</h2>
 <p>${message }</p>
 名前<br>
-<input type="text" name="name" cols="20"><br>
+<input type="text" name="name" cols="20" value="${name}"><br>
 Pass<br>
 <input type="password" name="pass" cols="20"><br><br>
 <button name = "action" value = "login">ログイン</button><br>

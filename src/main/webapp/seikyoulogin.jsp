@@ -13,7 +13,7 @@
 <form action = "/team_dev_merukaru/SystemServlet" method = "post">
 <h2>生協ログイン</h2>
 名前<br>
-<input type="text" name="name" cols="20"><br>
+<input type="text" name="name" cols="20" value="${name}"><br>
 Pass<br>
 <input type="password" name="pass" cols="20"><br><br>
 <input type="hidden"  name = "action" value = "slogin">

@@ -100,6 +100,7 @@ public class SystemServlet extends HttpServlet {
 						pass == null || pass.length() == 0 ||
 						!dao.checkInfo(loginUser)) {
 						request.setAttribute("message", "メールアドレスかパスワードが間違っています。");
+						request.setAttribute("name", name);
 						gotoPage(request, response, "/login.jsp");
 						return;
 					}
@@ -140,7 +141,7 @@ public class SystemServlet extends HttpServlet {
 			 }
 			 else if(action.equals("slogin")) {
 				 String name = request.getParameter("name");
-				    String pass = request.getParameter("pass");
+				 String pass = request.getParameter("pass");
 				    //int id = dao.slogin(name, pass);
 				    
 				    // if文でログイン成功・失敗を判定
@@ -152,6 +153,7 @@ public class SystemServlet extends HttpServlet {
 				    // 失敗の場合ログイン画面を再表示し、ログインできなかった理由を表示する     
 				    else {
 				        request.setAttribute("message", "ユーザIDまたはパスワードが異なります");
+				        request.setAttribute("name", name);
 				        gotoPage(request, response, "/seikyoulogin.jsp"); 
 				        return; // 処理をここで確実に終了させる
 				    }
