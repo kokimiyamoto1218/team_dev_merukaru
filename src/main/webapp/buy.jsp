@@ -64,7 +64,7 @@ th {
 
 
 
-<button><p><a href="/team_dev_merukaru/SystemServlet?action=login">前のページに戻る</a></p></button><br>
+<button><p><a href="/team_dev_merukaru/SystemServlet?action=back">前のページに戻る</a></p></button><br>
 
 
 </body>

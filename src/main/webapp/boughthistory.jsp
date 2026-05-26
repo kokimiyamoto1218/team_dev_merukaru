@@ -28,6 +28,6 @@
 </c:forEach>
 </table>
 
-<p><a href="/team_dev_merukaru/SystemServlet?action=login">一覧表示に戻る</a></p><br><br>
+<p><a href="/team_dev_merukaru/SystemServlet?action=back">一覧表示に戻る</a></p><br><br>
 </body>
 </html>

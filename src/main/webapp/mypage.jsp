@@ -19,7 +19,7 @@
 <p align="center"><a href="/team_dev_merukaru/ItemServlet?action=bhistory">購入履歴</a></p>
 
 <p align="center"><a href="/team_dev_merukaru/SystemServlet?action=logout">ログアウト</a></p><br><br>
-<p><a href="/team_dev_merukaru/SystemServlet?action=login">一覧表示に戻る</a></p>
+<p><a href="/team_dev_merukaru/SystemServlet?action=back">一覧表示に戻る</a></p>
 
 
 </body>

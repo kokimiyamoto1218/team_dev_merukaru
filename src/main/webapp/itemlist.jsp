@@ -85,28 +85,5 @@
 
 
 
-	<div class="parent">
-		<table border="1">
-			<tr>
-				<th>新品・中古</th>
-				<th>教科書名</th>
-				<th>金額</th>
-				<th>傷状態・コメント</th>
-				<th></th>
-			</tr>
-			<c:forEach items="${showitem}" var="showitems">
-				<tr>
-					<td>${showitems.neworused}</td>
-					<td>${showitems.name}</td>
-					<td>${showitems.price}</td>
-					<td>${showitems.condition}</td>
-					<td><a href="/team_dev_merukaru/ItemServlet?action=buy">購入</a></td>
-				</tr>
-			</c:forEach>
-
-
-		</table>
-	</div>
-
 </body>
 </html>

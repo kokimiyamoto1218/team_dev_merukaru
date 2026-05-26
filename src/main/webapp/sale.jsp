@@ -10,7 +10,7 @@
 </head>
 <body>
 <form action = "/team_dev_merukaru/ItemServlet" method = "get">
-<p><a href="/team_dev_merukaru/SystemServlet?action=login">一覧表示に戻る</a></p><br><br>
+<p><a href="/team_dev_merukaru/SystemServlet?action=back">一覧表示に戻る</a></p><br><br>
 <h2>出品フォーム</h2>
 教科書名<br>
 <input type="text" name="name" cols="20"><br>

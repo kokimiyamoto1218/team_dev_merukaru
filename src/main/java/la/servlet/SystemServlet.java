@@ -115,7 +115,12 @@ public class SystemServlet extends HttpServlet {
 						 gotoPage(request, response, "/itemlist.jsp");
 						 
 					}
-				 
+			 else if(action.equals("back")) {
+				 List<ItemBean> list = dao.findAll();
+				 //ログイン認証→一覧ページ
+				 request.setAttribute("showitem", list);
+				 gotoPage(request, response, "/itemlist.jsp");
+			 }
 				 
 				
 			 
