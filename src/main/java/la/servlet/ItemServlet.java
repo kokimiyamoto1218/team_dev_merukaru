@@ -62,7 +62,7 @@ public class ItemServlet extends HttpServlet {
 				List<ItemBean> list = dao.findAll();
 				request.setAttribute("showitem", list);
 
-				gotoPage(request, response, "/sekyouitemlist.jsp");
+				gotoPage(request, response, "/seikyouitemlist.jsp");
 
 			} else if (action.equals("go")) {
 				//出品→一覧ページ
