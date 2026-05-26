@@ -18,13 +18,14 @@ public class SystemServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+
 		// パラメータの解析は特になし
 		
 		// モデルを使って全商品を取得する
 		try {
-			request.setCharacterEncoding("UTF-8");
-			//ItemDAO dao = new ItemDAO();
 			ItemDAO dao = new ItemDAO();
+			
 			
 			String action = request.getParameter("action");
 			//DAOオブジェクト生成
@@ -33,16 +34,48 @@ public class SystemServlet extends HttpServlet {
 			 if(action == null) {
 				
 			// Listをリクエストスコープに入れてJSPへフォーワードする
-				 gotoPage(request,response,"/login.jsp");
+				 	gotoPage(request,response,"/login.jsp");
 			
 			}
 			 else if(action.equals("newmember")) {
-				//新規会員登録→ログインページ
-				gotoPage(request,response,"/login.jsp");
-			}
+				    String name = request.getParameter("name");
+				    String pass = request.getParameter("pass");
+				    String passcheck = request.getParameter("newpass");
+				    
+				    // 1. まずパスワードの長さをチェック
+				    if(pass != null && pass.length() >= 6 && pass.length() <= 16) {
+				        
+				        // 2. パスワードの一致をチェック
+				        if(pass.equals(passcheck)) {
+				            
+				            // 3. 名前の入力チェック（null または 空文字 の場合は else へ行く）
+				            if(name != null && !name.trim().isEmpty()) {
+				                // 名前もパスワードも正しい場合のみ登録
+				                dao.addMember(name, pass);
+				                gotoPage(request, response, "/login.jsp");
+				                return; 
+				            } else {
+				                // 【重要】名前が未入力（nullや空文字）ならここを通る
+				                request.setAttribute("message", "名前は１文字以上で入力してください");
+				                gotoPage(request, response, "/newmember.jsp"); 
+				                return;
+				            }
+				            
+				        } else {
+				            request.setAttribute("message", "パスワードとパスワード確認用が異なります");
+				            gotoPage(request, response, "/newmember.jsp"); 
+				            return;
+				        }
+				    } else {
+				        request.setAttribute("message", "パスワードは６字以上16字以下で入力して下さい");
+				        gotoPage(request, response, "/newmember.jsp"); 
+				        return;
+				    }
+				}
+	
 			 else if(action.equals("logout")) {
 					//ログアウト→ログインページ
-					gotoPage(request,response,"/login.jsp");
+				 	gotoPage(request,response,"/login.jsp");
 				}
 			 else if(action.equals("new")) {
 				 //ログイン→新規会員登録ページ
@@ -52,7 +85,7 @@ public class SystemServlet extends HttpServlet {
 				 List<ItemBean> list = dao.findAll();
 				 //ログイン認証→一覧ページ
 				 request.setAttribute("showitem", list);
-				 gotoPage(request, response, "/itemlist.jsp");
+				 	gotoPage(request, response, "/itemlist.jsp");
 				 
 			 }
 			 
@@ -65,13 +98,23 @@ public class SystemServlet extends HttpServlet {
 					gotoPage(request, response, "/seikyoulogin.jsp");
 			 }
 			 else if(action.equals("slogin")) {
-				 //生協ログイン→生協一覧
-					gotoPage(request, response, "/seikyouitemlist.jsp");
-			 }
-			 else if(action.equals("ssearch")) {
-				 //生協検索→検索結果表示
-					gotoPage(request, response, "/seikyouitemlist.jsp");
-			 }
+				    String name = request.getParameter("name");
+				    String pass = request.getParameter("pass");
+				    int id = dao.slogin(name, pass);
+				    
+				    // if文でログイン成功・失敗を判定
+				    if(id >= 1) {
+				        // 【修正】別のサーブレットへパラメータ付きで遷移させる場合はリダイレクトを使う
+				        response.sendRedirect(request.getContextPath() + "/ItemServlet?action=drgonsearch");
+				        return; // 処理をここで確実に終了させる
+				    }
+				    // 失敗の場合ログイン画面を再表示し、ログインできなかった理由を表示する     
+				    else {
+				        request.setAttribute("message", "ユーザIDまたはパスワードが異なります");
+				        gotoPage(request, response, "/seikyoulogin.jsp"); 
+				        return; // 処理をここで確実に終了させる
+				    }
+				}
 			 else if(action.equals("ssale")) {
 				 //生協一覧の出品→生協出品ページ
 					gotoPage(request, response, "/seikyousale.jsp");
