@@ -91,7 +91,7 @@ public class ItemServlet extends HttpServlet {
 			 }
 			 else if(action.equals("shistory")) {
 				//マイページ→出品履歴ページ
-					gotoPage(request, response, "/salehistory.jsp");
+					gotoPage(request, response, "/salehistory.jsp");	
 			 }
 			 else if(action.equals("info")) {
 				 //マイページ→会員情報照会ページ
