@@ -14,6 +14,7 @@
 
 	<br>
 	<br>
+	<p>${ sessionScope.userId}</p>
 	<br>
 	<table>
 		<tr>
@@ -59,12 +60,15 @@
 			<th></th>
 		</tr>
 <c:forEach items="${showitem}" var="showitems">
+
 	<form action="/team_dev_merukaru/ItemServlet" method="get">	
+
 		<tr>
 			<td>${showitems.neworused}</td>
 			<td>${showitems.name}</td>
 			<td>${showitems.price}</td>
 			<td>${showitems.condition}</td>
+
 			<input type="hidden" name="action" value="buy">
 			<input type="hidden" name="neworused" value="${showitems.neworused}">
 			<input type="hidden" name="code" value="${showitems.code}">
@@ -75,6 +79,7 @@
 			</form>
 		</tr>
 		
+
 </c:forEach>
 
 

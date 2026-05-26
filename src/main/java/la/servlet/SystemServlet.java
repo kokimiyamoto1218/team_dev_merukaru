@@ -9,8 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import la.bean.ItemBean;
+import la.bean.MemberBean;
 import la.dao.ItemDAO;
 
 @WebServlet("/SystemServlet")
@@ -18,14 +20,13 @@ public class SystemServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-
 		// パラメータの解析は特になし
 		
 		// モデルを使って全商品を取得する
 		try {
+			request.setCharacterEncoding("UTF-8");
+			//ItemDAO dao = new ItemDAO();
 			ItemDAO dao = new ItemDAO();
-			
 			
 			String action = request.getParameter("action");
 			//DAOオブジェクト生成
@@ -34,11 +35,12 @@ public class SystemServlet extends HttpServlet {
 			 if(action == null) {
 				
 			// Listをリクエストスコープに入れてJSPへフォーワードする
-				 	gotoPage(request,response,"/login.jsp");
+				 gotoPage(request,response,"/login.jsp");
 			
 			}
 			 else if(action.equals("newmember")) {
-				    String name = request.getParameter("name");
+				//新規会員登録→ログインページ
+				 String name = request.getParameter("name");
 				    String pass = request.getParameter("pass");
 				    String passcheck = request.getParameter("newpass");
 				    
@@ -71,26 +73,54 @@ public class SystemServlet extends HttpServlet {
 				        gotoPage(request, response, "/newmember.jsp"); 
 				        return;
 				    }
-				}
-	
+				 
+				 
+			}
 			 else if(action.equals("logout")) {
 					//ログアウト→ログインページ
-				 	gotoPage(request,response,"/login.jsp");
+					gotoPage(request,response,"/login.jsp");
 				}
 			 else if(action.equals("new")) {
 				 //ログイン→新規会員登録ページ
 					gotoPage(request, response, "/newmember.jsp");
 			 }
 			 else if(action.equals("login")) {
-				 List<ItemBean> list = dao.findAll();
-				 //ログイン認証→一覧ページ
-				 request.setAttribute("showitem", list);
-				 	gotoPage(request, response, "/itemlist.jsp");
 				 
-			 }
+				 String name = request.getParameter("name");
+				 String pass = request.getParameter("pass");
+				 
+				 MemberBean loginUser = new MemberBean(name, pass);
+				// メールアドレスとパスワードのチェック
+					if (name == null || name.length() == 0 ||
+						pass == null || pass.length() == 0 ||
+						!dao.checkInfo(loginUser)) {
+						request.setAttribute("message", "メールアドレスかパスワードが間違っています。");
+						gotoPage(request, response, "/login.jsp");
+						return;
+					}
+					
+					HttpSession session = request.getSession();
+					String isLogin = (String)session.getAttribute("isLogin");
+					if (isLogin == null) {
+						// 初めてのログイン
+						session = request.getSession();
+						session.setAttribute("userId", loginUser.getId());
+					}
+
+
+				
+					    List<ItemBean> list = dao.findAll();
+						 //ログイン認証→一覧ページ
+						 request.setAttribute("showitem", list);
+						 gotoPage(request, response, "/itemlist.jsp");
+						 
+					}
+				 
+				 
+				
 			 
 			 
-			 
+			 //////////////////
 			 //////生協システム
 			 
 			 else if(action.equals("seikyoulogin")) {
@@ -98,7 +128,7 @@ public class SystemServlet extends HttpServlet {
 					gotoPage(request, response, "/seikyoulogin.jsp");
 			 }
 			 else if(action.equals("slogin")) {
-				    String name = request.getParameter("name");
+				 String name = request.getParameter("name");
 				    String pass = request.getParameter("pass");
 				    int id = dao.slogin(name, pass);
 				    
@@ -114,13 +144,58 @@ public class SystemServlet extends HttpServlet {
 				        gotoPage(request, response, "/seikyoulogin.jsp"); 
 				        return; // 処理をここで確実に終了させる
 				    }
-				}
+			 }
+			 else if(action.equals("ssearch")) {
+				 //生協検索→検索結果表示
+				 String name = request.getParameter("bookname");
+				 String neworused = request.getParameter("check");
+				 System.out.println("neworused:" + neworused);
+				 
+				 List<ItemBean> list = dao.searchBook(name, neworused);
+				 request.setAttribute("showitem", list);
+					gotoPage(request, response, "/seikyouitemlist.jsp");
+			 }
 			 else if(action.equals("ssale")) {
 				 //生協一覧の出品→生協出品ページ
 					gotoPage(request, response, "/seikyousale.jsp");
 			 }
 			 else if(action.equals("seikyousale")) {
 				 //生協出品→一覧更新、画面遷移
+				 
+				 String name = request.getParameter("name");
+				 int price = Integer.parseInt(request.getParameter("price"));
+				 String nu = request.getParameter("nu");
+				 String lang = request.getParameter("lang");
+				 String comment = request.getParameter("comment");
+				String condition = "";
+				 
+				 if(lang == null) {
+					 condition = comment;
+				 }
+				 else if(comment.length() == 0 && comment.isEmpty()) {
+					 condition = lang;
+				 }
+				 else if(comment.length() != 0) {
+					 condition = lang + ":" + comment;
+				 }
+
+
+				 dao.addItem(name, price,nu,lang,comment,condition);
+				 System.out.println("add");
+				 List<ItemBean> list = dao.findAll();
+					// Listをリクエストスコープに入れてJSPへフォーワードする
+					request.setAttribute("showitem", list);
+					gotoPage(request, response, "/seikyouitemlist.jsp");
+			 }
+			 else if(action.equals("sdelete")) {
+				 //生協削除ボタン→一覧削除、画面更新
+				 int product_id = Integer.parseInt(request.getParameter("pid"));
+				 System.out.println(product_id);
+				 dao.deleteSalehistory(product_id);
+				 
+				 List<ItemBean> list = dao.findAll();
+				 
+				 request.setAttribute("showitem", list);
 					gotoPage(request, response, "/seikyouitemlist.jsp");
 			 }
 			 

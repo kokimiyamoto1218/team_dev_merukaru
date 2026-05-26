@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
@@ -56,12 +57,18 @@
 					<th>傷状態・コメント</th>
 				</tr>
 
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-				</tr>
+<c:forEach items="${showitem}" var="showitems">
+<form action = "/team_dev_merukaru/SystemServlet" method = "post">
+		<tr>
+			<td>${showitems.neworused}</td>
+			<td>${showitems.name}</td>
+			<td>${showitems.price}</td>
+			<td>${showitems.condition}</td>
+			<td><button name = "action" value = "sdelete">削除</button><input type = "hidden" name = "pid" value = "${showitems.code }"></form></td>
+			
+		</tr>
+
+</c:forEach>
 
 
 			</table>

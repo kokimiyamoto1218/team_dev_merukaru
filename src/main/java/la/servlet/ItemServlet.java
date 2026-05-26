@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import la.bean.ItemBean;
+import la.bean.SaleHistoryBean;
 import la.bean.purchasehistoryBean;
 import la.dao.ItemDAO;
 
@@ -24,7 +25,7 @@ public class ItemServlet extends HttpServlet {
 		// モデルを使って全商品を取得する
 		try {
 			request.setCharacterEncoding("UTF-8");
-			//ItemDAO dao = new ItemDAO();
+			ItemDAO dao = new ItemDAO();
 			
 			String action = request.getParameter("action");
 			//
@@ -49,6 +50,13 @@ public class ItemServlet extends HttpServlet {
 			 }
 			 else if(action.equals("search")) {
 				 //一覧検索→検索結果表示
+				 
+				 String name = request.getParameter("bookname");
+				 String neworused = request.getParameter("check");
+				 System.out.println("neworused:" + neworused);
+				 
+				 List<ItemBean> list = dao.searchBook(name, neworused);
+				 request.setAttribute("showitem", list);
 					gotoPage(request, response, "/itemlist.jsp");
 			 }
 			 else if(action.equals("go")) {
@@ -58,9 +66,22 @@ public class ItemServlet extends HttpServlet {
 				 String nu = request.getParameter("nu");
 				 String lang = request.getParameter("lang");
 				 String comment = request.getParameter("comment");
-				 ItemDAO dao = new ItemDAO();
-				 dao.addItem(name, price,nu,lang,comment);
-				 System.out.println("aaa");
+				String condition = "";
+				 
+				 if(lang == null) {
+					 condition = comment;
+				 }
+				 else if(comment.length() == 0 && comment.isEmpty()) {
+					 condition = lang;
+				 }
+				 else if(comment.length() != 0) {
+					 condition = lang + ":" + comment;
+				 }
+
+
+				 dao.addItem(name, price,nu,lang,comment,condition);
+				 
+				 System.out.println("add");
 				 List<ItemBean> list = dao.findAll();
 					// Listをリクエストスコープに入れてJSPへフォーワードする
 					request.setAttribute("showitem", list);
@@ -82,8 +103,7 @@ public class ItemServlet extends HttpServlet {
 					
 					gotoPage(request, response, "/buy.jsp");
 			 }
-			 else if(action.equals("bhistory")) {
-				 ItemDAO dao = new ItemDAO();
+			 else if(action.equals("bhistory")) {;
 				 List<purchasehistoryBean> list = dao.findParcashistory();
 				 request.setAttribute("purchasehistory", list);
 				//マイページ→購入履歴ページ
@@ -91,6 +111,23 @@ public class ItemServlet extends HttpServlet {
 			 }
 			 else if(action.equals("shistory")) {
 				//マイページ→出品履歴ページ
+				 
+				 List<SaleHistoryBean> list = dao.findMysale();
+				 
+				 request.setAttribute("showitem", list);
+				 
+				 
+					gotoPage(request, response, "/salehistory.jsp");
+			 }
+			 else if(action.equals("delete")) {
+				 //取り消し→画面上削除、saleテーブル削除
+				 int product_id = Integer.parseInt(request.getParameter("pid"));
+				 System.out.println(product_id);
+				 dao.deleteSalehistory(product_id);
+				 
+				 List<SaleHistoryBean> list = dao.findMysale();
+				 
+				 request.setAttribute("showitem", list);
 					gotoPage(request, response, "/salehistory.jsp");
 			 }
 			 else if(action.equals("info")) {
@@ -102,7 +139,6 @@ public class ItemServlet extends HttpServlet {
 				    String date = request.getParameter("date");
 				    int product_id = Integer.parseInt(request.getParameter("code"));
 				    System.out.print(product_id);
-				    ItemDAO dao = new ItemDAO();
 				    dao.updatePurcahase(product_id,date);
 				    dao.deleteFlag(product_id);
 				    List<ItemBean> list = dao.findAll();
@@ -116,7 +152,6 @@ public class ItemServlet extends HttpServlet {
 				 int product_id = Integer.parseInt(request.getParameter("code"));
 				 String product_name = request.getParameter("name");
 				 int price = Integer.parseInt(request.getParameter("price")); 
-				 ItemDAO dao = new ItemDAO();
 				 dao.addPurcahase(product_id,product_name,price);
 				 request.setAttribute("product_id", product_id);
 				 
