@@ -90,7 +90,7 @@ public class ItemDAO {
 					 PreparedStatement st = con.prepareStatement(sql);) {
 					st.setString(1, name);
 					st.setString(2, password);
-					System.out.println("setOK");
+					
 					
 					try (// SQLの実行
 							 ResultSet rs = st.executeQuery();) {
