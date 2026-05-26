@@ -393,7 +393,12 @@ public class ItemDAO {
 
 	public int addMember(String name, String password) throws DAOException {
 		// SQL文の作成
-		String sql = "INSERT INTO member(member_name,pasword) SELECT ?, ? FROM member WHERE (SELECT COUNT(*) FROM member WHERE member_name = ?) = 0";
+		String sql =
+				"INSERT INTO member(member_name,pasword) " +
+				"SELECT ?, ? " +
+				"WHERE NOT EXISTS (" +
+				"SELECT 1 FROM member WHERE member_name = ?" +
+				")";
 
 		try (// データベースへの接続
 				Connection con = DriverManager.getConnection(url, user, pass);
