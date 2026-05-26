@@ -38,31 +38,40 @@ public class SystemServlet extends HttpServlet {
 			
 			}
 			 else if(action.equals("newmember")) {
-				 String name = request.getParameter("name");
-				 String pass = request.getParameter("pass");
-				 String passcheck = request.getParameter("newpass");
-				 
-				 if(pass.length() >= 6 && pass.length() <= 16) {
-					 if(pass.equals(passcheck)) {
-						 if(name != null) {
-							 dao.addMember(name, pass);
-							//新規会員登録→ログインページ
-							 gotoPage(request,response,"/login.jsp");
-						 }else {
-							 request.setAttribute("message", "名前は１文字以上で入力してください");
-							 gotoPage(request, response, "/newmember.jsp"); 
-						 }
-					 }else	{
-						 request.setAttribute("message", "パスワードとパスワード確認用が異なります");
-						 gotoPage(request, response, "/newmember.jsp"); 
-					 }
-				}else if(pass.length() < 6 || pass.length() > 16) {
-					 request.setAttribute("message", "パスワードは６字以上16字以下で入力して下さい");
-					 gotoPage(request, response, "/newmember.jsp"); 
+				    String name = request.getParameter("name");
+				    String pass = request.getParameter("pass");
+				    String passcheck = request.getParameter("newpass");
+				    
+				    // 1. まずパスワードの長さをチェック
+				    if(pass != null && pass.length() >= 6 && pass.length() <= 16) {
+				        
+				        // 2. パスワードの一致をチェック
+				        if(pass.equals(passcheck)) {
+				            
+				            // 3. 名前の入力チェック（null または 空文字 の場合は else へ行く）
+				            if(name != null && !name.trim().isEmpty()) {
+				                // 名前もパスワードも正しい場合のみ登録
+				                dao.addMember(name, pass);
+				                gotoPage(request, response, "/login.jsp");
+				                return; 
+				            } else {
+				                // 【重要】名前が未入力（nullや空文字）ならここを通る
+				                request.setAttribute("message", "名前は１文字以上で入力してください");
+				                gotoPage(request, response, "/newmember.jsp"); 
+				                return;
+				            }
+				            
+				        } else {
+				            request.setAttribute("message", "パスワードとパスワード確認用が異なります");
+				            gotoPage(request, response, "/newmember.jsp"); 
+				            return;
+				        }
+				    } else {
+				        request.setAttribute("message", "パスワードは６字以上16字以下で入力して下さい");
+				        gotoPage(request, response, "/newmember.jsp"); 
+				        return;
+				    }
 				}
-					
-				 
-		}
 	
 			 else if(action.equals("logout")) {
 					//ログアウト→ログインページ
@@ -89,20 +98,25 @@ public class SystemServlet extends HttpServlet {
 					gotoPage(request, response, "/seikyoulogin.jsp");
 			 }
 			 else if(action.equals("slogin")) {
-				 String name = request.getParameter("name");
-				 String pass = request.getParameter("pass");
-				 int id = dao.slogin(name, pass);
-				 //if分でログイン成功・失敗を判定　0行なら失敗、１行以上なら成功
-				 if(id >= 1) {
-					 gotoPage(request, response, "/ItemServlet?action=drgonsearch");
-				 }
-				//失敗の場合ログイン画面を再表示し、ログインできなかった理由を表示する	 
-				 else {
-					 request.setAttribute("message", "ユーザIDまたはパスワードが異なります");
-					 gotoPage(request, response, "/seikyoulogin.jsp"); 
-				 }
-			     
-			 }
+
+				    String name = request.getParameter("name");
+				    String pass = request.getParameter("pass");
+				    int id = dao.slogin(name, pass);
+				    
+				    // if文でログイン成功・失敗を判定
+				    if(id >= 1) {
+				        // 【修正】別のサーブレットへパラメータ付きで遷移させる場合はリダイレクトを使う
+				        response.sendRedirect(request.getContextPath() + "/ItemServlet?action=drgonsearch");
+				        return; // 処理をここで確実に終了させる
+				    }
+				    // 失敗の場合ログイン画面を再表示し、ログインできなかった理由を表示する     
+				    else {
+				        request.setAttribute("message", "ユーザIDまたはパスワードが異なります");
+				        gotoPage(request, response, "/seikyoulogin.jsp"); 
+				        return; // 処理をここで確実に終了させる
+				    }
+				}
+
 			 else if(action.equals("ssale")) {
 				 //生協一覧の出品→生協出品ページ
 					gotoPage(request, response, "/seikyousale.jsp");

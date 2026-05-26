@@ -37,19 +37,46 @@
 
 
 
-					<input type="text" size="33" name="bookname" cols="50"> <select
-						name="check">
-						<option value="全て">全て</option>
-						<option value="新品">新品</option>
-						<option value="中古">中古</option>
-					</select>
-					<button>検索</button>
-				</form>
+		<input type="text" size="33" name="bookname" cols="50">
+		 <select name="check">
+			<option value="全て">全て</option>
+			<option value="新品">新品</option>
+			<option  value="中古">中古</option>
+		</select>
+		<button>検索</button>
+	</form>
 
 			</td>
 		</tr>
 	</table>
 
+<div class="parent">
+	<table border="1">
+		<tr>
+			<th>新品・中古</th>
+			<th>教科書名</th>
+			<th>金額</th>
+			<th>傷状態・コメント</th>
+			<th></th>
+		</tr>
+<c:forEach items="${showitem}" var="showitems">
+	<form action="/team_dev_merukaru/ItemServlet" method="get">	
+		<tr>
+			<td>${showitems.neworused}</td>
+			<td>${showitems.name}</td>
+			<td>${showitems.price}</td>
+			<td>${showitems.condition}</td>
+			<input type="hidden" name="action" value="buy">
+			<input type="hidden" name="neworused" value="${showitems.neworused}">
+			<input type="hidden" name="code" value="${showitems.code}">
+			<input type="hidden" name="name" value="${showitems.name}">
+			<input type="hidden" name="price" value="${showitems.price}"> 
+			<input type="hidden" name="condition" value="${showitems.condition}"> 
+			<td><button>購入</button></form></td>
+			</form>
+		</tr>
+		
+</c:forEach>
 
 
 

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,8 +22,10 @@
     }
     </style>
 
-<tr><th>新品・中古</th><th>教科書名</th><th>金額</th><th>傷状態・コメント</th></tr>
-<tr><td></td><td></td><td></td><td></td></tr>
+<tr><th>教科書名</th><th>金額</th><th>受け取り予定日</th></tr>
+<c:forEach items="${purchasehistory}" var="pachasehistorys">
+<tr><td>${pachasehistorys.product_name}</td><td>${pachasehistorys.price}</td><td>${pachasehistorys.booking}</td></tr>
+</c:forEach>
 </table>
 
 <p><a href="/team_dev_merukaru/SystemServlet?action=login">一覧表示に戻る</a></p><br><br>
