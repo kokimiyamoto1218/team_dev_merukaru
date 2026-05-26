@@ -11,6 +11,7 @@
 <body>
 <form action = "/team_dev_merukaru/SystemServlet" method = "post">
 <h2>ログイン</h2>
+<p>${message }</p>
 名前<br>
 <input type="text" name="name" cols="20"><br>
 Pass<br>

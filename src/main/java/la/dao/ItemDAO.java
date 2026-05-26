@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import la.bean.ItemBean;
+import la.bean.MemberBean;
 import la.bean.SaleHistoryBean;
 
 public class ItemDAO {
@@ -205,9 +206,40 @@ public class ItemDAO {
 		e.printStackTrace();
 		throw new DAOException("レコードの取得に失敗しました。");
 	}
+	}
 
-}
-	
-	
+
+	// ユーザが存在するかどうかチェック
+		public boolean checkInfo(MemberBean bean) throws DAOException {
+			boolean result = false;
+			String sql =
+					"SELECT member_id, member_name FROM member WHERE member_name = ? AND pasword = ?";
+
+
+			try (Connection connection = DriverManager.getConnection(url, user, pass);
+				 PreparedStatement statement = connection.prepareStatement(sql);) {
+				// プレースホルダ設定
+				statement.setString(1, bean.getName());
+				statement.setString(2, bean.getPass());
+				try (ResultSet resultSet = statement.executeQuery();) {
+					if (resultSet.next()) {
+						// ユーザが存在する
+						result = true;
+						// ユーザオブジェクトへユーザ情報設定
+						bean.setId(resultSet.getInt("member_id"));
+						bean.setName(resultSet.getString("member_name"));
+					} 
+				} catch (Exception e) {			
+					throw new DAOException("レコードの取得に失敗しました。");
+				}
+			} catch (Exception e) {
+				throw new DAOException("レコードの取得に失敗しました。");
+			} 
+
+
+			// 結果を返す（true：ユーザが存在する、false：ユーザが存在しない）
+			return result;
+		}
+
 	
 }

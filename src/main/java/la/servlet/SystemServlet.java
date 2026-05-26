@@ -9,8 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import la.bean.ItemBean;
+import la.bean.MemberBean;
 import la.dao.ItemDAO;
 
 @WebServlet("/SystemServlet")
@@ -38,6 +40,8 @@ public class SystemServlet extends HttpServlet {
 			}
 			 else if(action.equals("newmember")) {
 				//新規会員登録→ログインページ
+				 
+				 
 				gotoPage(request,response,"/login.jsp");
 			}
 			 else if(action.equals("logout")) {
@@ -49,12 +53,39 @@ public class SystemServlet extends HttpServlet {
 					gotoPage(request, response, "/newmember.jsp");
 			 }
 			 else if(action.equals("login")) {
-				 List<ItemBean> list = dao.findAll();
-				 //ログイン認証→一覧ページ
-				 request.setAttribute("showitem", list);
-				 gotoPage(request, response, "/itemlist.jsp");
 				 
-			 }
+				 String name = request.getParameter("name");
+				 String pass = request.getParameter("pass");
+				 
+				 MemberBean loginUser = new MemberBean(name, pass);
+				// メールアドレスとパスワードのチェック
+					if (name == null || name.length() == 0 ||
+						pass == null || pass.length() == 0 ||
+						!dao.checkInfo(loginUser)) {
+						request.setAttribute("message", "メールアドレスかパスワードが間違っています。");
+						gotoPage(request, response, "/login.jsp");
+						return;
+					}
+					
+					HttpSession session = request.getSession();
+					String isLogin = (String)session.getAttribute("isLogin");
+					if (isLogin == null) {
+						// 初めてのログイン
+						session = request.getSession();
+						session.setAttribute("userId", loginUser.getId());
+					}
+
+
+				
+					    List<ItemBean> list = dao.findAll();
+						 //ログイン認証→一覧ページ
+						 request.setAttribute("showitem", list);
+						 gotoPage(request, response, "/itemlist.jsp");
+						 
+					}
+				 
+				 
+				
 			 
 			 
 			 //////////////////
