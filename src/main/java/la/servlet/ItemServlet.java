@@ -110,12 +110,13 @@ public class ItemServlet extends HttpServlet {
 					request.setAttribute("name", name);
 					request.setAttribute("price", price);
 					request.setAttribute("condition",condition);
-					request.setAttribute("neworused",neworused);
+					request.setAttribute("neworused",neworused); 
 					
 					gotoPage(request, response, "/buy.jsp");
 			 }
 			 else if(action.equals("bhistory")) {;
-				 List<purchasehistoryBean> list = dao.findParcashistory();
+			 int product_id = Integer.parseInt(request.getParameter("id"));
+				 List<purchasehistoryBean> list = dao.findParcashistory(product_id);
 				 request.setAttribute("purchasehistory", list);
 				//マイページ→購入履歴ページ
 					gotoPage(request, response, "/boughthistory.jsp");
@@ -162,8 +163,9 @@ public class ItemServlet extends HttpServlet {
 				 //出品→一覧ページ
 				 int product_id = Integer.parseInt(request.getParameter("code"));
 				 String product_name = request.getParameter("name");
-				 int price = Integer.parseInt(request.getParameter("price")); 
-				 dao.addPurcahase(product_id,product_name,price);
+				 int price = Integer.parseInt(request.getParameter("price"));
+				 int id = Integer.parseInt(request.getParameter("id"));
+				 dao.addPurcahase(product_id,product_name,price,id);
 				 request.setAttribute("product_id", product_id);
 				 
 					gotoPage(request, response, "/apointment.jsp");
