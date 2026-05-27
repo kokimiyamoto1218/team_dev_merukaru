@@ -1,5 +1,16 @@
 @charset "UTF-8";
 
+body {
+  background-image: url("kokuban.png");
+  background-repeat: no-repeat;
+   
+   /* 横幅を画面の90%に縮小し、縦幅は比率を保って自動調整 */
+   background-size: 90% auto; 
+   
+   /* 画像を画面の真ん中（上寄り）に配置 */
+   background-position: center top; 
+  }
+
 h2{background-color: crimson}
 
 h2{color:aliceblue}
