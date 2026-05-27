@@ -26,9 +26,10 @@
 	<br>
 	<br>
 	<br>
+	<br>
 	<table>
 		<tr>
-			<td>
+			<td class="custom-cell1">
 				<!-- メニュー -->
 				<p>メニュー</p>
 				<p>
@@ -38,7 +39,7 @@
 					<a href="/team_dev_merukaru/ItemServlet?action=sale">出品</a>
 				</p>
 			</td>
-			<td class="custom-cell">
+			<td class="custom-cell2">
 				<!--検索 -->
 				<form action="/team_dev_merukaru/ItemServlet" method="get">
 					<input type="hidden" name="action" value="search">

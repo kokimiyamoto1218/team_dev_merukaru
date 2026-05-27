@@ -4,7 +4,12 @@
   align-items: start;     
         
 }
-.custom-cell {
-  padding-left: 405px;
+
+.custom-cell1 {
+  padding-left: 200px;
+}
+
+.custom-cell2 {
+  padding-left: 200px;
 }
 
