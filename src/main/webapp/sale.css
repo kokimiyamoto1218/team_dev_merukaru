@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+body {
+  /* 1. 文字やボタンなど、すべてのインライン要素を中央に寄せる */
+  text-align: center; 
+
+  /* 2. テーブルやフォームなど、すべてのブロック要素を中央に寄せる（念のため） */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 前のテーブルの白枠設定もここに残しておきます */
+.parent table {
+  border-collapse: collapse !important;
+}
+.parent table, .parent table th, .parent table td {
+  border: 1px solid #ffffff !important;
+}
+
+.checkbox-container {
+  display: inline-block;
+  text-align: left;
+  margin: 15px 0; /* 上下に少し余白を作って見やすくします */
+}
+
+/* 各チェックボックス自体の左揃え設定 */
+.checkbox-group {
+  text-align: left;
+  padding-left: 10px; /* 「使用状態」という文字から少し右にインデントして見やすくします */
+}
