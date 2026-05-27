@@ -10,7 +10,7 @@
 </head>
 <body>
 <form action = "/team_dev_merukaru/SystemServlet" method = "post">
-<p><a href="/team_dev_merukaru/SystemServlet?action=info">会員情報照会に戻る</a></p><br><br>
+<p><a href="/team_dev_merukaru/ItemServlet?action=info">会員情報照会に戻る</a></p><br><br>
 <h2>会員情報変更</h2>
 <p>${message }</p>
 名前<br>
