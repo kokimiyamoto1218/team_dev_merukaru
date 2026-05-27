@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link href="all.css" rel="stylesheet">
 <title>新規棋院登録</title>
 
 </head>
@@ -18,7 +19,7 @@
 
 
 <br><br>
-<h2>新規会員登録</h2>
+<h2 class="titleH2">新規会員登録</h2>
 名前<br>
 <input type="text" name="name" cols="20"><br>
 パスワード<br>
