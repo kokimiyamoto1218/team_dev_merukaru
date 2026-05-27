@@ -253,8 +253,7 @@ public class SystemServlet extends HttpServlet {
 				 String lang = request.getParameter("lang");
 				 String comment = request.getParameter("comment");
 				String condition = "";
-				HttpSession session = request.getSession();
-			    Integer currentUserId = (Integer) session.getAttribute("userId");
+			    Integer currentUserId = 1;
 				
 				 
 				 if(lang == null) {
