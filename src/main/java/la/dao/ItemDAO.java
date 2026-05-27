@@ -113,7 +113,7 @@ public class ItemDAO {
 			finalCondition += comment;
 		}
 		if (finalCondition.isEmpty()) {
-			finalCondition = "特になし"; // 何も選ばれずコメントも無い場合の初期値
+			finalCondition = ""; // 何も選ばれずコメントも無い場合の初期値
 		}
 
 		try (// データベースへの接続
