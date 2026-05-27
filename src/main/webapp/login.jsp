@@ -6,13 +6,15 @@
 <head>
 <meta charset="UTF-8">
 <title>ログイン</title>
-<link href="all.css" rel="stylesheet">
+
 </head>
+<div style="text-align: center;">
+
 <body>
 <form action = "/team_dev_merukaru/SystemServlet" method = "post">
-<h2>ログイン</h2>
+<h2><font size="6">ログイン</font></h2>
 <p>${message }</p>
-名前<br>
+<font size="6">名前</font><br>
 <input type="text" name="name" cols="20" value="${name}"><br>
 Pass<br>
 <input type="password" name="pass" cols="20"><br><br>
@@ -21,4 +23,6 @@ Pass<br>
 <p><a href="/team_dev_merukaru/SystemServlet?action=new">新規会員登録</a> <a href="/team_dev_merukaru/SystemServlet?action=seikyoulogin">生協の方はこちら</a></p>
 
 </body>
+
+</div>
 </html>
