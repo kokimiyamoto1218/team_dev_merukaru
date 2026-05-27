@@ -9,8 +9,36 @@
 <link href="all.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="buy.css" />
 <style>
+/* ここから追加：全体の文字を白く、中央寄せにする */
+body {
+	color: #ffffff;
+	text-align: center;
+}
+
+/* 内側のデータが入るテーブル（border="1" のテーブル）だけを狙って白い1本線にする */
+table[align="center"] {
+	border-collapse: collapse !important; /* 2本線を1本に合体 */
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+table[align="center"], 
+table[align="center"] th, 
+table[align="center"] td {
+	border: 1px solid #ffffff !important; /* 枠線を白にする */
+	padding: 8px; /* セルの中に少し余白を作って見やすくします */
+}
+
+/* ボタンの中のリンク文字が青くなって見えなくなるのを防ぐ */
+button a {
+	color: inherit;
+	text-decoration: none;
+}
+/* ★ここまで追加 */
+
 th {
 	background-color: #afeeee;
+	color: #000000; /* ★見出しの背景が薄い青なので、文字を黒にして読みやすくします */
 }
 
 .cellleft {
@@ -28,7 +56,7 @@ th {
 			<tr>
 				<td>
 					<h2>購入内容確認</h2>
-				</td
+				</td> <!-- 💡元のコードで「>」が抜けていたので修正しました -->
 			</tr>
 			<tr>
 				<td>
