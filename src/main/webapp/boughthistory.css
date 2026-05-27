@@ -1,3 +1,146 @@
+body {
+    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', sans-serif;
+    background-color: #fcf9f2;
+    margin: 0;
+    padding: 40px 20px;
+    color: #3e3a36;
+}
+
+.mypage-container, .history-container {
+    max-width: 650px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 35px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(139, 126, 116, 0.15);
+    border: 1px solid #e1dbd2;
+}
+
 h2 {
-	margin-left:38%;
+    color: #2b4c3f;
+    font-size: 26px;
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: bold;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    width: 50%;
+    height: 2px;
+    background: #c89666;
+}
+
+.history-table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    margin-bottom: 35px;
+    font-size: 15px;
+    background-color: #ffffff;
+}
+
+.history-table th {
+    font-family: 'Kiwi Maru', serif;
+    background-color: #1e4620;
+    color: #f8f9fa;
+    padding: 12px;
+    font-size: 18px;
+    text-shadow: 0 0 3px rgba(255, 255, 255, 0.6);
+    border: 1px dashed rgba(255, 255, 255, 0.3);
+    text-align: center;
+}
+
+.col-name {
+    width: 50%;
+    text-align: center;
+}
+
+.col-price {
+    width: 20%;
+    text-align: center;
+}
+
+.col-date {
+    width: 30%;
+    text-align: center;
+}
+
+.history-table td {
+    padding: 14px 10px;
+    border-bottom: 1px dashed #c8bca6;
+    color: #4a4641;
+    word-break: break-all;
+}
+
+.history-table td:nth-child(2), .price-col {
+    text-align: right;
+    font-weight: bold;
+    color: #b84c37;
+}
+
+.history-table td:nth-child(3) {
+    text-align: center;
+}
+
+.history-table tr:hover td {
+    background-color: #fbf8f3;
+}
+
+.menu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.menu-btn {
+    display: block;
+    padding: 15px 20px;
+    background-color: #ffffff;
+    color: #3e3a36;
+    text-decoration: none;
+    border: 2px solid #2b4c3f;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.menu-btn:hover {
+    background-color: #2b4c3f;
+    color: #ffffff;
+}
+
+.menu-btn.logout {
+    color: #b84c37;
+    border-color: #b84c37;
+}
+
+.menu-btn.logout:hover {
+    background-color: #b84c37;
+    color: #ffffff;
+}
+
+.back-link-wrap {
+    text-align: center;
+    border-top: 1px solid #e1dbd2;
+    padding-top: 25px;
+}
+
+.back-link {
+    color: #7a736a;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.back-link:hover {
+    color: #2b4c3f;
+    text-decoration: underline;
 }

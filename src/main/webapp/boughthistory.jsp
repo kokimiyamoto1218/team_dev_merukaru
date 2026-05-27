@@ -1,33 +1,48 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title >購入履歴</title>
-<!-- <link href="boughthistory.css" rel="./team_dev_group7/styleseet"> -->
-<link href="all.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="boughthistory.css" /> 
+<head>
+<meta charset="UTF-8">
+<title>購入履歴</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@500&display=swap" rel="stylesheet">
+<link href="boughthistory.css" rel="stylesheet">
+</head>
 </head>
 <body>
-<br><br><br>
 
-<h2>購入履歴</h2>
-<table align="center" border="1">
-<style>
-  
-  th {
-    background-color: #afeeee;
-    }
-    </style>
+<div class="history-container">
 
-<tr><th>教科書名</th><th>金額</th><th>受け取り予定日</th></tr>
-<c:forEach items="${purchasehistory}" var="pachasehistorys">
-<tr><td>${pachasehistorys.product_name}</td><td>${pachasehistorys.price}</td><td>${pachasehistorys.booking}</td></tr>
-</c:forEach>
-</table>
+    <h2>購入履歴</h2>
+    
+    <table class="history-table">
+        <thead>
+            <tr>
+                <th>教科書名</th>
+                <th >金額</th> <th>受け取り予定日</th>
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach items="${purchasehistory}" var="pachasehistorys">
+                <tr>
+                    <td>${pachasehistorys.product_name}</td>
+                    <td class="price-col">¥${pachasehistorys.price}</td>
+                    <td>${pachasehistorys.booking}</td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
 
-<p><a href="/team_dev_merukaru/SystemServlet?action=back">一覧表示に戻る</a></p><br><br>
+    <div class="back-link-wrap">
+        <a class="back-link" href="/team_dev_merukaru/SystemServlet?action=back">← 一覧表示に戻る</a>
+    </div>
+
+</div>
+
 </body>
 </html>
