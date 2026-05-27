@@ -32,7 +32,7 @@ public class ItemServlet extends HttpServlet {
 	    // 3. ちゃんとログインしているかチェック
 	    if (currentUserId != null) {
 	        // ★大成功！別のサーブレットでも member_id（currentUserId）が使えます！
-	        System.out.println("別のサーブレットに届いたよ！会員番号は: " + currentUserId);
+	        //System.out.println("別のサーブレットに届いたよ！会員番号は: " + currentUserId);
 	        
 	        // ここで別のDAOを呼び出したり、その人専用の処理をしたりできるよ！
 	        // ex) detailDao.getDetailList(currentUserId);

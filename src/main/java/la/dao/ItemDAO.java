@@ -211,7 +211,7 @@ public class ItemDAO {
 		}
 	}
 	public List<ItemBean> searchBook(String name, String neworused) throws DAOException {
-	String sql = "select * from sale where 1 = 1";
+	String sql = "select * from sale where delete_flag = 0";
 
 	// 条件の追加
 	boolean hasName = (name != null && name.length() != 0);
@@ -425,7 +425,7 @@ public class ItemDAO {
 			// SQLの実行
 			int rows = st.executeUpdate();
 			if(rows == 0) {
-				throw new DAOException("このユーザ名は既に登録されています");
+				rows = 5;
 			}
 			return rows;
 		} catch (SQLException e) {
@@ -469,10 +469,40 @@ public class ItemDAO {
 			// 結果を返す（true：ユーザが存在する、false：ユーザが存在しない）
 			return result;
 		}
+		// ユーザの名前が存在するかどうかチェック
+				public boolean checkName(String name) throws DAOException {
+					boolean result = true;
+					String sql =
+							"SELECT member_name FROM member WHERE member_name = ? ";
+
+
+					try (Connection connection = DriverManager.getConnection(url, user, pass);
+						 PreparedStatement statement = connection.prepareStatement(sql);) {
+						// プレースホルダ設定
+						statement.setString(1, name);
+						
+						try (ResultSet resultSet = statement.executeQuery();) {
+							if (resultSet.next()) {
+								// ユーザが存在する
+								result = false;
+								// ユーザオブジェクトへユーザ情報設定
+								
+							} 
+						} catch (Exception e) {			
+							throw new DAOException("レコードの取得に失敗しました。");
+						}
+					} catch (Exception e) {
+						throw new DAOException("レコードの取得に失敗しました。");
+					} 
+
+
+					// 結果を返す（true：ユーザが存在する、false：ユーザが存在しない）
+					return result;
+				}
 		
 		public int changeInfo(String name,String npass,Integer id) throws DAOException {
 			// SQL文の作成
-			String sql = "UPDATE member SET member_name = ? , pasword = ? WHERE member_id = ?";
+			String sql = "UPDATE member SET member_name = ? , pasword = ? WHERE member_id = ? AND NOT EXISTS (SELECT 1 FROM member WHERE member_name = ?)";
 
 			try (// データベースへの接続
 					Connection con = DriverManager.getConnection(url, user, pass);
@@ -482,9 +512,13 @@ public class ItemDAO {
 				st.setString(1, name);
 				st.setString(2, npass);
 				st.setInt(3,id);
+				st.setString(4, name);
 
 				// SQLの実行
 				int rows = st.executeUpdate();
+				if(rows == 0) {
+					throw new DAOException("このユーザ名は既に登録されています");
+				}
 				return rows;
 			} catch (SQLException e) {
 				e.printStackTrace();

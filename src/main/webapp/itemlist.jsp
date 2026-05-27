@@ -25,7 +25,6 @@
 
 	<br>
 	<br>
-	<p>${sessionScope.userId}</p>
 	<br>
 	<table>
 		<tr>

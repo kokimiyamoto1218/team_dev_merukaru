@@ -49,19 +49,29 @@ public class SystemServlet extends HttpServlet {
 				        
 				        // 2. パスワードの一致をチェック
 				        if(pass.equals(passcheck)) {
+				        	
 				            
 				            // 3. 名前の入力チェック（null または 空文字 の場合は else へ行く）
-				            if(name != null && !name.trim().isEmpty()) {
+				            if(name != null && !name.trim().isEmpty() && name.length() <= 100) {
 				                // 名前もパスワードも正しい場合のみ登録
-				                dao.addMember(name, pass);
+				                int a = dao.addMember(name, pass);
+				                if(a != 5) {
+				                	
 				                gotoPage(request, response, "/login.jsp");
 				                return; 
+				                
+				            	}else {
+					            request.setAttribute("message", "この名前は既に存在します");
+					            gotoPage(request, response, "/newmember.jsp"); 
+					            return;
+					        }
 				            } else {
 				                // 【重要】名前が未入力（nullや空文字）ならここを通る
-				                request.setAttribute("message", "名前は１文字以上で入力してください");
+				                request.setAttribute("message", "名前は１文字以上１００文字以内で入力してください");
 				                gotoPage(request, response, "/newmember.jsp"); 
 				                return;
 				            }
+				        	
 				            
 				        } else {
 				            request.setAttribute("message", "パスワードとパスワード確認用が異なります");
@@ -69,11 +79,11 @@ public class SystemServlet extends HttpServlet {
 				            return;
 				        }
 				    } else {
-				        request.setAttribute("message", "パスワードは６字以上16字以下で入力して下さい");
+				        request.setAttribute("message", "パスワードは６字以上１６字以下で入力して下さい");
 				        gotoPage(request, response, "/newmember.jsp"); 
 				        return;
 				    }
-				 
+				    
 				 
 			}
 			 else if(action.equals("logout")) {
@@ -99,7 +109,7 @@ public class SystemServlet extends HttpServlet {
 					if (name == null || name.length() == 0 ||
 						pass == null || pass.length() == 0 ||
 						!dao.checkInfo(loginUser)) {
-						request.setAttribute("message", "メールアドレスかパスワードが間違っています。");
+						request.setAttribute("message", "名前かパスワードが間違っています");
 						request.setAttribute("name", name);
 						gotoPage(request, response, "/login.jsp");
 						return;
@@ -146,6 +156,7 @@ public class SystemServlet extends HttpServlet {
 					        
 					        // 2. パスワードの一致をチェック
 					        if(newpass.equals(passcheck)) {
+					        	
 					            
 					            // 3. 名前の入力チェック（null または 空文字 の場合は else へ行く）
 					            if(name != null && !name.trim().isEmpty()) {
