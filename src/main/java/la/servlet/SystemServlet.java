@@ -304,6 +304,12 @@ public class SystemServlet extends HttpServlet {
 				    request.setAttribute("message", "ログアウトしました。");
 				    gotoPage(request,response,"/login.jsp");
 			 }
+			 else if(action.equals("sback")) {
+				 List<ItemBean> list = dao.findAll();
+				 //ログイン認証→一覧ページ
+				 request.setAttribute("showitem", list);
+				 gotoPage(request, response, "/seikyouitemlist.jsp");
+			 }
 			 
 			
 			
