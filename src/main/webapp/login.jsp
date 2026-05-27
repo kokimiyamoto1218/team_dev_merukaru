@@ -12,11 +12,11 @@
 
 <body>
 <form action = "/team_dev_merukaru/SystemServlet" method = "post">
-<h2><font size="6">ログイン</font></h2>
+<h2><font size="6">ログイン</h2>
 <p>${message }</p>
 <font size="6">名前</font><br>
 <input type="text" name="name" cols="20" value="${name}"><br>
-Pass<br>
+<font size="6">Pass</font><br>
 <input type="password" name="pass" cols="20"><br><br>
 <button name = "action" value = "login">ログイン</button><br>
 </form>
