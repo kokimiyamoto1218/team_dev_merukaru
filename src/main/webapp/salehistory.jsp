@@ -28,13 +28,14 @@
                 <tr>
                     <td>${showitems.productName}</td>
                     <td>${showitems.price}</td>
-                    <td>
+                    <td><c:if test="${showitems.delete_flag eq 0 }">
                         <form action="/team_dev_merukaru/ItemServlet" method="post" style="margin: 0;">
                             <button name="action" value="delete" class="menu-btn logout" style="padding: 5px 10px; font-size: 13px; margin: 0 auto; display: block; width: auto;">
                                 取り消し
                             </button>
                             <input type="hidden" name="pid" value="${showitems.productId}">
                         </form>
+                        </c:if>
                     </td>
                 </tr>
             </c:forEach>

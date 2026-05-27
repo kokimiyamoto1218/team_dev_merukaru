@@ -81,8 +81,9 @@ public class ItemDAO {
 	                String product_name = rs.getString("product_name");
 	                int price = rs.getInt("price");
 	                int sale_id = rs.getInt(1);
+	                int delete_flag = rs.getInt("delete_flag");
 	                
-	                SaleHistoryBean bean = new SaleHistoryBean(product_id, product_name, sale_id, price);
+	                SaleHistoryBean bean = new SaleHistoryBean(product_id, product_name, sale_id, price,delete_flag);
 	                list.add(bean);
 	            }
 	            // 商品一覧をListとして返す
@@ -318,17 +319,21 @@ public class ItemDAO {
 	public int deleteFlag(int product_id) throws DAOException {
 		// SQL文の作成
 		String sql = "UPDATE sale SET delete_flag = 1 WHERE product_id = ?";
+		String sql2 = "UPDATE salehistory SET delete_flag = 1 WHERE product_id = ?";
 
 		try (// データベースへの接続
 				Connection con = DriverManager.getConnection(url, user, pass);
 				// PreparedStatementオブジェクトの取得
-				PreparedStatement st = con.prepareStatement(sql);) {
+				PreparedStatement st = con.prepareStatement(sql);
+				PreparedStatement st2 = con.prepareStatement(sql2);) {
 			// 商品名と値段の指定
 			st.setInt(1, product_id);
+			st2.setInt(1, product_id);
 
 			// SQLの実行
 			int rows = st.executeUpdate();
-			return rows;
+			int rows2 = st2.executeUpdate();
+			return rows + rows2;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new DAOException("レコードの操作に失敗しました。");
@@ -470,16 +475,17 @@ public class ItemDAO {
 			return result;
 		}
 		// ユーザの名前が存在するかどうかチェック
-				public boolean checkName(String name) throws DAOException {
+				public boolean checkName(String name,Integer a) throws DAOException {
 					boolean result = true;
 					String sql =
-							"SELECT member_name FROM member WHERE member_name = ? ";
+							"SELECT member_name FROM member WHERE member_name = ? AND member_id != ?";
 
 
 					try (Connection connection = DriverManager.getConnection(url, user, pass);
 						 PreparedStatement statement = connection.prepareStatement(sql);) {
 						// プレースホルダ設定
 						statement.setString(1, name);
+						statement.setInt(2, a);
 						
 						try (ResultSet resultSet = statement.executeQuery();) {
 							if (resultSet.next()) {
@@ -499,10 +505,10 @@ public class ItemDAO {
 					// 結果を返す（true：ユーザが存在する、false：ユーザが存在しない）
 					return result;
 				}
-		
+		//AND NOT EXISTS (SELECT 1 FROM member WHERE member_name = ?)
 		public int changeInfo(String name,String npass,Integer id) throws DAOException {
 			// SQL文の作成
-			String sql = "UPDATE member SET member_name = ? , pasword = ? WHERE member_id = ? AND NOT EXISTS (SELECT 1 FROM member WHERE member_name = ?)";
+			String sql = "UPDATE member SET member_name = ? , pasword = ? WHERE member_id = ? ";
 
 			try (// データベースへの接続
 					Connection con = DriverManager.getConnection(url, user, pass);
@@ -512,12 +518,13 @@ public class ItemDAO {
 				st.setString(1, name);
 				st.setString(2, npass);
 				st.setInt(3,id);
-				st.setString(4, name);
+//				st.setString(4, name);
 
 				// SQLの実行
 				int rows = st.executeUpdate();
 				if(rows == 0) {
-					throw new DAOException("このユーザ名は既に登録されています");
+					System.out.println("更新されてない！");
+					rows = 500;
 				}
 				return rows;
 			} catch (SQLException e) {
