@@ -5,12 +5,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="all.css" rel="stylesheet">
+
 <title>会員情報変更</title>
 </head>
+
+<div style="text-align: center;">
+
 <body>
 <form action = "/team_dev_merukaru/SystemServlet" method = "post">
-<p><a href="/team_dev_merukaru/ItemServlet?action=info">会員情報照会に戻る</a></p><br><br>
+<br><br>
 <h2>会員情報変更</h2>
 <p>${message }</p>
 名前<br>
@@ -23,6 +26,10 @@
 <input type="password" name="newpass2" cols="20"><br>
 
 <p><button name = "action" value = "change">変更</button></a></p>
+<p><a href="/team_dev_merukaru/ItemServlet?action=info">会員情報照会に戻る</a></p>
 </form>
 </body>
+
+</div>
+
 </html>
