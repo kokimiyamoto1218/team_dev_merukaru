@@ -11,6 +11,12 @@ body {
    background-position: center top; 
   }
 
+body {
+      color: #ffffff; /* 白を指定 */
+    }
+
+
+
 h2{background-color: crimson}
 
 h2{color:aliceblue}

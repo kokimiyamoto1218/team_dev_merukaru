@@ -9,6 +9,17 @@
 <title>一覧表示</title>
 <link href="all.css" rel="stylesheet">
 <link rel="stylesheet" href="itemlist.css" />
+<style>
+/* 強制的にparentの中のテーブルを白い1本線にする */
+.parent table {
+  border-collapse: collapse !important;
+}
+.parent table, 
+.parent table th, 
+.parent table td {
+  border: 1px solid #ffffff !important;
+}
+</style>
 </head>
 <body>
 
@@ -80,7 +91,6 @@
 			</form>
 		</tr>
 		
-
 </c:forEach>
 
 
