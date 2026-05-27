@@ -1,19 +1,19 @@
 @charset "UTF-8";
 
-/* ★ 1. 画面の最外枠、テーブル、フォームなどすべてを中央に集める設定 ★ */
+
 body {
     text-align: center;
     margin: 0;
     padding: 20px;
 }
 
-/* ★ 2. HTMLの<table>自体が左に寄るのを防ぎ、画面の真ん中に持ってくる ★ */
+
 table {
     margin: 0 auto;
     text-align: center;
 }
 
-/* ★ 3. テーブルの中のセル(td)も中身を中央寄せにする ★ */
+
 td {
     text-align: center;
 }
@@ -96,15 +96,31 @@ h2 {
 }
 
 /* 一覧に戻るリンクの白文字化 */
-.back-link-seikyou {
-    color: #ffffff;
-    text-decoration: none;
-    font-size: 14px;
-    border-bottom: 1px dashed rgba(255, 255, 255, 0.5);
-    transition: all 0.2s;
-    display: inline-block;
+.back-btn-custom {
+  display: inline-block;
+  position: relative;
+  padding: 8px 20px 8px 32px;
+  color: #ffffff; /* 黒板の上で見やすい白文字 */
+  font-size: 14px;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.1); /* ほんのり透ける背景 */
+  transition: all 0.2s ease;
 }
-.back-link-seikyou:hover {
-    color: #ffda44;
-    border-bottom-color: #ffda44;
+.back-btn-custom::before {
+  content: '◀';
+  position: absolute;
+  left: 14px;
+  top: 52%;
+  transform: translateY(-50%);
+  font-size: 10px;
+  transition: all 0.2s ease;
+}
+.back-btn-custom:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: #ffffff;
+}
+.back-btn-custom:hover::before {
+  left: 8px; /* ホバーすると矢印がピョコッと左に動く */
 }
