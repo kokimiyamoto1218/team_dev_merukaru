@@ -5,22 +5,27 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="all.css" rel="stylesheet">
+<link href="mypage.css" rel="stylesheet">
 <title>マイページ</title>
 </head>
 <body>
 
+<div class="mypage-container">
 
-<h2 align="center">マイページ</h2>
-<p align="center"><a href="/team_dev_merukaru/ItemServlet?action=info">会員情報照会</a></p>
+    <h2 align="center">マイページ</h2>
+    
+    <div class="menu-list">
+        <a class="menu-btn" href="/team_dev_merukaru/ItemServlet?action=info">会員情報照会</a>
+        <a class="menu-btn" href="/team_dev_merukaru/ItemServlet?action=shistory">出品履歴・取り消し</a>
+        <a class="menu-btn" href="/team_dev_merukaru/ItemServlet?action=bhistory&id=${sessionScope.userId}">購入履歴</a>
+        <a class="menu-btn logout" href="/team_dev_merukaru/SystemServlet?action=logout">ログアウト</a>
+    </div>
 
-<p align="center"><a href="/team_dev_merukaru/ItemServlet?action=shistory">出品履歴・取り消し</a></p>
+    <div class="back-link-wrap">
+        <a class="back-link" href="/team_dev_merukaru/SystemServlet?action=back">← 一覧表示に戻る</a>
+    </div>
 
-<p align="center"><a href="/team_dev_merukaru/ItemServlet?action=bhistory&id=${sessionScope.userId}">購入履歴</a></p>
-
-<p align="center"><a href="/team_dev_merukaru/SystemServlet?action=logout">ログアウト</a></p><br><br>
-<p><a href="/team_dev_merukaru/SystemServlet?action=back">一覧表示に戻る</a></p>
-
+</div>
 
 </body>
 </html>
