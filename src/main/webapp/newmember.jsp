@@ -6,8 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>新規棋院登録</title>
-<link href="all.css" rel="stylesheet">
+
 </head>
+<div style="text-align: center;">
+
 <body>
 
 <p>${message}</p>
@@ -15,7 +17,7 @@
 
 
 
-<p><a href="/team_dev_merukaru/SystemServlet">ログイン画面に戻る</a></p><br><br>
+<br><br>
 <h2>新規会員登録</h2>
 名前<br>
 <input type="text" name="name" cols="20"><br>
@@ -27,5 +29,9 @@
 
 <p><button name = "action" value = "newmember">会員登録</button></p>
 </form>
+
+<p><a href="/team_dev_merukaru/SystemServlet">ログイン画面に戻る</a></p>
 </body>
+
+</div>
 </html>
