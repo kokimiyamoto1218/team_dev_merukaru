@@ -469,6 +469,28 @@ public class ItemDAO {
 			// 結果を返す（true：ユーザが存在する、false：ユーザが存在しない）
 			return result;
 		}
+		
+		public int changeInfo(String name,String npass,Integer id) throws DAOException {
+			// SQL文の作成
+			String sql = "UPDATE member SET member_name = ? , pasword = ? WHERE member_id = ?";
+
+			try (// データベースへの接続
+					Connection con = DriverManager.getConnection(url, user, pass);
+					// PreparedStatementオブジェクトの取得
+					PreparedStatement st = con.prepareStatement(sql);) {
+				// 商品名と値段の指定
+				st.setString(1, name);
+				st.setString(2, npass);
+				st.setInt(3,id);
+
+				// SQLの実行
+				int rows = st.executeUpdate();
+				return rows;
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw new DAOException("レコードの操作に失敗しました。");
+			}
+		}
 
 	
 

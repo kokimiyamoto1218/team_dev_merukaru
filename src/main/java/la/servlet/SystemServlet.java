@@ -111,6 +111,8 @@ public class SystemServlet extends HttpServlet {
 						// 初めてのログイン
 						session = request.getSession();
 						session.setAttribute("userId", loginUser.getId());
+						session.setAttribute("userName", loginUser.getName());
+						session.setAttribute("userPass", loginUser.getPass());
 						
 					}
 
@@ -128,6 +130,56 @@ public class SystemServlet extends HttpServlet {
 				 request.setAttribute("showitem", list);
 				 gotoPage(request, response, "/itemlist.jsp");
 			 }
+			 else if(action.equals("change")) {
+					//新規会員登録→ログインページ
+					 String name = request.getParameter("name");
+					    String pass = request.getParameter("pass");
+					    String newpass = request.getParameter("newpass");
+					    String passcheck = request.getParameter("newpass2");
+					    HttpSession session = request.getSession();
+					    Integer currentUserId = (Integer) session.getAttribute("userId");
+					    
+					    // 1. まずパスワードの長さをチェック
+					    if(pass != null && pass.length() >= 6 && pass.length() <= 16) {
+					    	// 1. まずパスワードの長さをチェック
+						    if(newpass != null && newpass.length() >= 6 && newpass.length() <= 16) {
+					        
+					        // 2. パスワードの一致をチェック
+					        if(newpass.equals(passcheck)) {
+					            
+					            // 3. 名前の入力チェック（null または 空文字 の場合は else へ行く）
+					            if(name != null && !name.trim().isEmpty()) {
+					                // 名前もパスワードも正しい場合のみ登録
+					            	System.out.println(currentUserId);
+					                dao.changeInfo(name, newpass,currentUserId);
+					                request.setAttribute("message", "会員情報が更新されました");
+					                gotoPage(request, response, "/login.jsp");
+					                return; 
+					            } else {
+					                // 【重要】名前が未入力（nullや空文字）ならここを通る
+					                request.setAttribute("message", "名前は１文字以上で入力してください");
+					                gotoPage(request, response, "/changeinfo.jsp"); 
+					                return;
+					            }
+					            
+					        } else {
+					            request.setAttribute("message", "新しいパスワードとパスワード確認用が異なります");
+					            gotoPage(request, response, "/changeinfo.jsp"); 
+					            return;
+					        }
+						    }else {
+					            request.setAttribute("message", "新しいパスワードは６字以上16字以下で入力して下さい");
+					            gotoPage(request, response, "/changeinfo.jsp"); 
+					            return;
+					        }
+					    } else {
+					        request.setAttribute("message", "パスワードは６字以上16字以下で入力して下さい");
+					        gotoPage(request, response, "/changeinfo.jsp"); 
+					        return;
+					    }
+					 
+					 
+				}
 				 
 				
 			 

@@ -26,6 +26,8 @@ public class ItemServlet extends HttpServlet {
 		
 		// 2. カードから会員番号（userId）を取り出す
 	    Integer currentUserId = (Integer) session.getAttribute("userId");
+	    String currentUserName =  (String) session.getAttribute("userName");
+	    String currentUserPass = (String) session.getAttribute("userPass");
 
 	    // 3. ちゃんとログインしているかチェック
 	    if (currentUserId != null) {
@@ -156,6 +158,9 @@ public class ItemServlet extends HttpServlet {
 			 }
 			 else if(action.equals("info")) {
 				 //マイページ→会員情報照会ページ
+				 request.setAttribute("name", currentUserName);
+				 request.setAttribute("pass", currentUserPass);
+				 
 					gotoPage(request, response, "/info.jsp");
 			 }
 			 else if(action.equals("res")) {
