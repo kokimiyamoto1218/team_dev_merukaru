@@ -17,6 +17,17 @@ body {
 
 
 
-h2{background-color: crimson}
+h2{
+	background-color: crimson;
+	color:aliceblue;
+}
 
-h2{color:aliceblue}
+/*
+	タイトル表示用H2タグのスタイル定義
+*/
+.titleH2 {
+	margin-left:550px;
+	margin-right: 550px;
+	padding-left: 50px;
+	padding-right: 50px;;
+}

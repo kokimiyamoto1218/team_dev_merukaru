@@ -13,7 +13,7 @@
 
 <body>
 <form action = "/team_dev_merukaru/SystemServlet" method = "post">
-<h2><font size="6">ログイン</h2>
+<h2  class="titleH2"><font size="6">ログイン</h2>
 <p>${message }</p>
 <font size="6">名前</font><br>
 <input type="text" name="name" cols="20" value="${name}"><br>
