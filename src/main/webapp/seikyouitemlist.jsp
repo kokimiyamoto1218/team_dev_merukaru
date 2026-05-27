@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html>
@@ -14,10 +14,10 @@
 	<br>
 	<br>
 	<br>
-
+	<br>
 	<table>
 		<tr>
-			<td>
+			<td class="custom-cell1">
 
 				<p>メニュー</p>
 				<p>
@@ -27,7 +27,7 @@
 					<a href="/team_dev_merukaru/SystemServlet?action=slogout">ログアウト</a>
 				</p>
 			</td>
-			<td class="custom-cell">
+			<td class="custom-cell2">
 
 
 				<form action="/team_dev_merukaru/SystemServlet" method="get">
@@ -44,34 +44,37 @@
 
 			</td>
 		</tr>
-		</table>
-		<br>
-		<br>
+	</table>
+	<br>
+	<br>
 
-		<div class="parent">
-			<table border="1">
-				<tr>
-					<th>新品・中古</th>
-					<th>教科書名</th>
-					<th>金額</th>
-					<th>傷状態・コメント</th>
+	<div class="parent">
+		<table border="1">
+			<tr>
+				<th>新品・中古</th>
+				<th>教科書名</th>
+				<th>金額</th>
+				<th>傷状態・コメント</th>
+			</tr>
+
+			<c:forEach items="${showitem}" var="showitems">
+				<form action="/team_dev_merukaru/SystemServlet" method="post">
+					<tr>
+						<td>${showitems.neworused}</td>
+						<td>${showitems.name}</td>
+						<td>${showitems.price}</td>
+						<td>${showitems.condition}</td>
+						<td><button name="action" value="sdelete">削除</button>
+							<input type="hidden" name="pid" value="${showitems.code }">
+				</form>
+				</td>
+
 				</tr>
 
-<c:forEach items="${showitem}" var="showitems">
-<form action = "/team_dev_merukaru/SystemServlet" method = "post">
-		<tr>
-			<td>${showitems.neworused}</td>
-			<td>${showitems.name}</td>
-			<td>${showitems.price}</td>
-			<td>${showitems.condition}</td>
-			<td><button name = "action" value = "sdelete">削除</button><input type = "hidden" name = "pid" value = "${showitems.code }"></form></td>
-			
-		</tr>
-
-</c:forEach>
+			</c:forEach>
 
 
-			</table>
-		</div>
+		</table>
+	</div>
 </body>
 </html>

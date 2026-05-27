@@ -6,20 +6,46 @@
 <head>
 <meta charset="UTF-8">
 <title>生協ログイン</title>
-<link href="all.css" rel="stylesheet">
+<style>
+  /* 画面全体の中央寄せ */
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: sans-serif;
+  }
+  /* コンテナとフォーム内要素の中央寄せ */
+  .mypage-container, form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  /* 入力フォームやボタンの余白調整 */
+  input, button, a {
+    margin-bottom: 15px;
+  }
+</style>
 </head>
 <body>
+
+<div class="mypage-container">
+
 <p>${message}</p>
-<form action = "/team_dev_merukaru/SystemServlet" method = "post">
+<form action="/team_dev_merukaru/SystemServlet" method="post">
 <h2>生協ログイン</h2>
-名前<br>
-<input type="text" name="name" cols="20" value="${name}"><br>
-Pass<br>
-<input type="password" name="pass" cols="20"><br><br>
-<input type="hidden"  name = "action" value = "sdragon">
-<button>ログイン</button><a href="/team_dev_merukaru/SystemServlet">一般の方はこちら</a>
+<label>名前</label>
+<input type="text" name="name" size="20" value="${name}">
+<label>Pass</label>
+<input type="password" name="pass" size="20">
+<input type="hidden" name="action" value="sdragon">
+<button>ログイン</button>
+<a href="/team_dev_merukaru/SystemServlet">一般の方はこちら</a>
 </form>
 
+</div>
 
 </body>
 </html>
