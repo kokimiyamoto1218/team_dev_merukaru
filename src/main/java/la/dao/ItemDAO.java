@@ -94,24 +94,39 @@ public class ItemDAO {
 	        throw new DAOException("レコードの取得に失敗しました。");
 	    }
 	}
-	public int addItem(String name,int price,String nu,String lang,String comment,String condition,Integer a) throws DAOException {
+	public int addItem(String name, int price, String nu, String lang, String comment, String condition, Integer a) throws DAOException {
 		// SQL文の作成
-		String sql = "INSERT INTO sale(product_name, price,condition,neworused) VALUES( ?, ?, ?, ?) RETURNING product_id";
-		String sql2 = "INSERT INTO salehistory(product_id, product_name,sale_id,price) VALUES( ?, ?, ?, ?)";
+		String sql = "INSERT INTO sale(product_name, price, condition, neworused) VALUES( ?, ?, ?, ?) RETURNING product_id";
+		String sql2 = "INSERT INTO salehistory(product_id, product_name, sale_id, price) VALUES( ?, ?, ?, ?)";
 		
-		
-		
+		// ★ 教科書状態（lang）とコメント（comment）を綺麗に合体させて、1つの状態文字列にする処理 ★
+		// 例: 「シミあり 傷あり」に後ろのコメント「少し破れあり」を連結して「シミあり 傷あり / 少し破れあり」にする
+		String finalCondition = "";
+		if (lang != null && !lang.isEmpty()) {
+			finalCondition += lang;
+		}
+		if (comment != null && !comment.isEmpty()) {
+			if (!finalCondition.isEmpty()) {
+				finalCondition += " / "; // 状態とコメントの間に区切りを入れる
+			}
+			finalCondition += comment;
+		}
+		if (finalCondition.isEmpty()) {
+			finalCondition = "特になし"; // 何も選ばれずコメントも無い場合の初期値
+		}
+
 		try (// データベースへの接続
 			 Connection con = DriverManager.getConnection(url, user, pass);
 			 // PreparedStatementオブジェクトの取得
 			 PreparedStatement st = con.prepareStatement(sql);
-				PreparedStatement st2 = con.prepareStatement(sql2) ;) {
+			 PreparedStatement st2 = con.prepareStatement(sql2);) {
 
-			// 商品名と値段の指定
+			// 商品名と値段、新しく合成した状態(finalCondition)を設定
 			st.setString(1, name);
 			st.setInt(2, price);
-			st.setString(3, condition);
+			st.setString(3, finalCondition); // 引数の condition ではなく、合成した文字列を渡す！
 			st.setString(4, nu);
+			
 			// SQLの実行
 			ResultSet rs = st.executeQuery(); 
 			int pid = 0;
@@ -119,14 +134,15 @@ public class ItemDAO {
 				pid = rs.getInt("product_id");
 			}
 			
-				// 商品名と値段の指定
-				st2.setInt(1, pid);
-				st2.setString(2, name);
-				st2.setInt(3, a);
-				st2.setInt(4, price);
-				// SQLの実行
-				int rows = st2.executeUpdate();
-				System.out.println("historyadd");
+			// 出品履歴テーブルへのインサート
+			st2.setInt(1, pid);
+			st2.setString(2, name);
+			st2.setInt(3, a);
+			st2.setInt(4, price);
+			
+			// SQLの実行
+			int rows = st2.executeUpdate();
+			System.out.println("historyadd");
 			
 			return rows;
 		} catch (SQLException e) {

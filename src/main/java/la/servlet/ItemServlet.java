@@ -83,32 +83,46 @@ public class ItemServlet extends HttpServlet {
 
 			} 
 			 else if(action.equals("go")) {
-				 //出品→一覧ページ
+				
 				 String name = request.getParameter("name");
-				 int price = Integer.parseInt(request.getParameter("price"));
-				 String nu = request.getParameter("nu");
-				 String lang = request.getParameter("lang");
-				 String comment = request.getParameter("comment");
-				String condition = "";
+				// 出品→一覧ページ
+				 String price = request.getParameter("price");
 				 
-				 if(lang == null) {
-					 condition = comment;
+				 if (name == null || name.trim().isEmpty()) {
+					 
+					 request.setAttribute("errorMsg", "教科書名を入力してください。");
+					
+					 gotoPage(request, response, "/sale.jsp");
+					 return; 
 				 }
-				 else if(comment.length() == 0 && comment.isEmpty()) {
-					 condition = lang;
+				 if (price == null || price.trim().isEmpty()) {
+					 
+					 request.setAttribute("errorMsg", "金額を入力してください。");
+					
+					 gotoPage(request, response, "/sale.jsp");
+					 return; 
 				 }
-				 else if(comment.length() != 0) {
-					 condition = lang + ":" + comment;
+				 int intprice = Integer.parseInt(request.getParameter("price"));
+				 String nu = request.getParameter("nu"); 
+				 
+				 String[] langs = request.getParameterValues("lang");
+				 String lang = "";
+				 if (langs != null) {
+					
+					 lang = String.join(" ", langs); 
 				 }
-
-
-				 dao.addItem(name, price,nu,lang,comment,condition,currentUserId);
+				 
+				 String comment = request.getParameter("comment");
+				 String condition = "";
+				 
+				 
+				 dao.addItem(name, intprice, nu, lang, comment, condition, currentUserId);
 				 
 				 System.out.println("add");
 				 List<ItemBean> list = dao.findAll();
-					// Listをリクエストスコープに入れてJSPへフォーワードする
-					request.setAttribute("showitem", list);
-					gotoPage(request, response, "/itemlist.jsp");
+				 // Listをリクエストスコープに入れてJSPへフォーワードする
+				 request.setAttribute("showitem", list);
+				 gotoPage(request, response, "/itemlist.jsp");
 			 }
 			 else if(action.equals("buy")) {
 				 //購入→購入内容確認ページ

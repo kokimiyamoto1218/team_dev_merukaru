@@ -6,43 +6,66 @@
 <head>
 <meta charset="UTF-8">
 <title>出品</title>
-<link href="sale.css" rel="stylesheet">
 <link href="all.css" rel="stylesheet">
+<link href="sale.css" rel="stylesheet">
 </head>
 <body>
-<form action = "/team_dev_merukaru/ItemServlet" method = "get">
-<br>
-<h2>出品フォーム</h2>
-教科書名<br>
-<input type="text" name="name" cols="20"><br>
-金額<br>
-<input type="text" name="price" cols="20"><br>
 
-<!-- ★ここから：2つのグループの左端を完全に一致させるための共通の枠★ -->
-<div class="checkbox-container">
+<div class="mypage-container">
 
-    使用状態<br>
-    <div class="checkbox-group">
-        <input type="checkbox" name="nu" value="新品">新品<br>
-        <input type="checkbox" name="nu" value="中古">中古<br>
-    </div>
-    <br>
+    <h2>出品フォーム</h2>
 
-    教科書状態<br>
-    <div class="checkbox-group">
-        <input type="checkbox" name="lang" value="シミあり">シミあり<br>
-        <input type="checkbox" name="lang" value="傷あり">傷あり<br>
-        <input type="checkbox" name="lang" value="書き込みあり">書き込みあり<br>
+    <form action="/team_dev_merukaru/ItemServlet" method="get">
+    <p id="error">${errorMsg}</p> 
+        
+        <div class="info-box">
+            <div class="form-item">
+                <label class="info-label">教科書名</label>
+                <input type="text" name="name" class="input-text">
+            </div>
+            
+            <div class="form-item">
+                <label class="info-label">金額</label>
+                <input type="text" name="price" class="input-text">
+            </div>
+
+            <div class="form-item">
+                <label class="info-label">使用状態</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="nu" value="新品" checked> 新品</label>
+                    <label><input type="radio" name="nu" value="中古"> 中古</label>
+                </div>
+            </div>
+
+            <div class="form-item">
+                <label class="info-label">教科書状態</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="lang" value="シミあり"> シミあり</label>
+                    <label><input type="checkbox" name="lang" value="傷あり"> 傷あり</label>
+                    <label><input type="checkbox" name="lang" value="書き込みあり"> 書き込みあり</label>
+                </div>
+            </div>
+
+            <div class="form-item">
+                <label class="info-label">コメント</label>
+                <input type="text" name="comment" class="input-text">
+            </div>
+        </div>
+
+        <div class="info-btn-wrap">
+            <button name="action" value="go" class="info-submit-btn">
+                出品する
+            </button>
+        </div>
+    </form>
+
+    <div class="info-back-wrap">
+        <a href="/team_dev_merukaru/SystemServlet?action=back" class="back-btn-custom">
+            一覧表示に戻る
+        </a>
     </div>
 
 </div>
-<!-- ★ここまで★ -->
-<br>
 
-コメント<br>
-<input type="text" name="comment" cols="50">
-<p><button name = "action" value = "go">出品</button></p>
-</form>
-<p><a href="/team_dev_merukaru/SystemServlet?action=back">一覧表示に戻る</a></p><br>
 </body>
 </html>

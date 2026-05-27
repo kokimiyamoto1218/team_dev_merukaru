@@ -4,10 +4,12 @@ body {
   /* 1. 文字やボタンなど、すべてのインライン要素を中央に寄せる */
   text-align: center; 
 
-  /* 2. テーブルやフォームなど、すべてのブロック要素を中央に寄せる（念のため） */
+  /* 2. テーブルやフォームなど、すべてのブロック要素を中央に寄せる（元のレイアウトをキープ） */
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 0;
+  padding: 20px;
 }
 
 /* 前のテーブルの白枠設定もここに残しておきます */
@@ -18,14 +20,184 @@ body {
   border: 1px solid #ffffff !important;
 }
 
-.checkbox-container {
+/* 金額や教科書名など、入力エリア全体を囲むコンテナ */
+.info-box {
   display: inline-block;
   text-align: left;
-  margin: 15px 0; /* 上下に少し余白を作って見やすくします */
+  margin: 15px 0;
+  padding: 30px 40px;
+  background-color: #faf6ee; /* 温かみのある再生紙のようなレトロ白 */
+  border: 1px dashed #c8bca6; /* ミシン目のような可愛い破線 */
+  border-radius: 6px;
+  box-shadow: inset 0 2px 4px rgba(139, 126, 116, 0.05);
+  min-width: 300px;
 }
 
-/* 各チェックボックス自体の左揃え設定 */
+/* 各入力項目の縦のスキマを微調整 */
+.form-item {
+  margin-bottom: 18px;
+}
+.form-item:last-child {
+  margin-bottom: 0;
+}
+
+/* 「教科書名」「金額」などの見出し文字 */
+.info-label {
+  display: block;
+  font-weight: bold;
+  color: #2b4c3f; /* 学校の黒板の深い緑 */
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+/* 入力テキストボックス */
+.input-text {
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 15px;
+  border: 1px solid #c8bca6;
+  border-radius: 4px;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  color: #3e3a36;
+}
+.input-text:focus {
+  outline: none;
+  border-color: #2b4c3f; /* クリックすると黒板の緑に光る */
+}
+
+/* ラジオボタンとチェックボックスの左揃え設定（元の構造をキレイに統合） */
+.radio-group,
 .checkbox-group {
   text-align: left;
-  padding-left: 10px; /* 「使用状態」という文字から少し右にインデントして見やすくします */
+  padding-left: 10px; /* 見出しから少し右にインデントして見やすく */
+  display: flex;
+  flex-direction: column;
+  gap: 6px; /* 選択肢同士の縦のスキマ */
+}
+
+/* 選択肢の文字とボタンの並び */
+.radio-group label,
+.checkbox-group label {
+  font-size: 14px;
+  color: #4a4641;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* 出品エラーメッセージ（指定のゴールドをかっこよく！） */
+#error {
+  color: #ffda44; /* 黒板の上でもパッと目立つ明るいゴールド */
+  font-weight: bold;
+  font-size: 15px;
+  margin: 10px 0;
+  text-shadow: 0 0 8px rgba(255, 218, 68, 0.4); /* ほんのり警告灯のように光らせる */
+}
+
+
+.info-btn-wrap {
+  margin-top: 20px;
+}
+.info-submit-btn {
+  display: block;
+  width: 200px;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff !important;
+  background: linear-gradient(135deg, #c89666, #b07d4e); /* 木目・レザー風グラデ */
+  border: none;
+  border-radius: 25px;
+  box-shadow: 0 4px 0 #8b5a2b, 0 6px 12px rgba(0, 0, 0, 0.2); /* 立体感 */
+  transition: all 0.1s ease;
+  cursor: pointer;
+  margin: 0 auto;
+}
+.info-submit-btn:active {
+  transform: translateY(4px); /* ボタンを押すとポコッと沈む */
+  box-shadow: 0 0px 0 #8b5a2b, 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* --- 【下部リンク】ひょこっと動く戻るボタン --- */
+.info-back-wrap {
+  margin-top: 30px;
+}
+.back-btn-custom {
+  display: inline-block;
+  position: relative;
+  padding: 8px 20px 8px 32px;
+  color: #ffffff; /* 黒板の上で見やすい白文字 */
+  font-size: 14px;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.1); /* ほんのり透ける背景 */
+  transition: all 0.2s ease;
+}
+.back-btn-custom::before {
+  content: '◀';
+  position: absolute;
+  left: 14px;
+  top: 52%;
+  transform: translateY(-50%);
+  font-size: 10px;
+  transition: all 0.2s ease;
+}
+.back-btn-custom:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: #ffffff;
+}
+.back-btn-custom:hover::before {
+  left: 8px; /* ホバーすると矢印がピョコッと左に動く */
+}
+/* フォーム全体の枠（余白を小さく） */
+.info-box {
+    background-color: #ffffff;
+    padding: 15px;         /* 20px から 15px に縮小 */
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+
+/* 各入力項目の行（間隔を狭く） */
+.form-item {
+    display: flex;
+    align-items: center; 
+    margin-bottom: 10px;   /* 15px から 10px に縮小 */
+}
+
+/* 左側のラベル（文字を小さく、幅もタイトに） */
+.info-label {
+    width: 100px;          /* 120px から 100px に縮小 */
+    font-weight: bold;
+    font-size: 0.85rem;    /* ⭕ 文字を少し小さく */
+    color: #333333;
+    flex-shrink: 0;
+}
+
+/* 右側の入力欄（高さを低く、文字を小さく） */
+.input-text {
+    flex: 1;            
+    padding: 5px 10px;     /* 8px から 5px にして上下を細く */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.85rem;    /* ⭕ 入力文字も少し小さく */
+    box-sizing: border-box;
+}
+
+/* 選択肢（ラジオ・チェックボックス）の文字も小さく */
+.radio-group label, .checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 4px;           
+    cursor: pointer;
+    font-size: 0.85rem;    /* ⭕ 選択肢の文字も少し小さく */
+}
+
+/* 選択肢同士の間隔も少し狭く */
+.radio-group, .checkbox-group {
+    display: flex;
+    gap: 10px;             /* 15px から 10px に縮小 */
+    align-items: center;
 }
