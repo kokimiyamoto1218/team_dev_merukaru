@@ -142,56 +142,65 @@ public class SystemServlet extends HttpServlet {
 			 }
 			 else if(action.equals("change")) {
 				    String name = request.getParameter("name");
-				    String pass = request.getParameter("pass"); // ※現在のパスワード（もし画面で入力させているなら）
+				    String pass = request.getParameter("pass"); // 画面で入力された「現在のパスワード」
 				    String newpass = request.getParameter("newpass");
 				    String passcheck = request.getParameter("newpass2");
+				    
 				    HttpSession session = request.getSession();
 				    Integer currentUserId = (Integer) session.getAttribute("userId");
+				    // ★セッションから現在の正しいパスワードを取得
+				    String currentUserPass = (String) session.getAttribute("userPass");
 				    
-				    // 1. まずパスワードの長さをチェック
-				    if(pass != null && pass.length() >= 6 && pass.length() <= 16) {
-				        if(newpass != null && newpass.length() >= 6 && newpass.length() <= 16) {
+				    // 【追加】1. 現在のパスワードが正しいかチェック
+				    if (currentUserPass == null || !currentUserPass.equals(pass)) {
+				        request.setAttribute("message", "現在のパスワードが間違っています");
+				        gotoPage(request, response, "/changeinfo.jsp"); 
+				        return; // 処理を中断して送り返す
+				    }
+				    
+				    // 2. 新しいパスワードの長さをチェック
+				    if(newpass != null && newpass.length() >= 6 && newpass.length() <= 16) {
 				            
-				            // 2. パスワードの一致をチェック
-				            if(newpass.equals(passcheck)) {
+				        // 3. 新しいパスワードと確認用の一致チェック
+				        if(newpass.equals(passcheck)) {
 				                
-				                // 3. 名前の入力長さチェック
-				                if(name != null && !name.trim().isEmpty() && name.length() <= 100) {
+				            // 4. 名前の入力長さチェック
+				            if(name != null && !name.trim().isEmpty() && name.length() <= 100) {
 				                    
-				                    // 自分以外の誰かと名前が被っていないかチェックする
-				                    if(dao.checkName(name, currentUserId)) {
-				                        // 重複なし（または自分の名前のまま）なら更新OK！
-				                        System.out.println("更新するユーザーID: " + currentUserId);
-				                        dao.changeInfo(name, newpass, currentUserId);
+				                // 自分以外の誰かと名前が被っていないかチェックする
+				                if(dao.checkName(name, currentUserId)) {
+				                    // 重複なしならDB更新OK！
+				                    System.out.println("更新するユーザーID: " + currentUserId);
+				                    dao.changeInfo(name, newpass, currentUserId);
 				                        
-				                        request.setAttribute("message", "会員情報が更新されました");
-				                        gotoPage(request, response, "/login.jsp");
-				                        return; 
-				                    } else {
-				                        // 他の人がすでに使っている名前だった場合
-				                        request.setAttribute("message", "この名前は既に別のユーザーに使用されています");
-				                        gotoPage(request, response, "/changeinfo.jsp"); 
-				                        return;
-				                    }
-				                    
+				                    // DB変更に成功したら、セッションに保存されている情報も新しくする
+				                    session.setAttribute("userName", name);
+				                    session.setAttribute("userPass", newpass);
+				                        
+				                    // ログインページ、またはマイページ（お好みで）に遷移
+				                    request.setAttribute("message", "会員情報が更新されました");
+				                    gotoPage(request, response, "/login.jsp");
+				                    return; 
 				                } else {
-				                    request.setAttribute("message", "名前は１文字以上１００文字以内で入力してください");
+				                    // 他の人がすでに使っている名前だった場合
+				                    request.setAttribute("message", "この名前は既に別のユーザーに使用されています");
 				                    gotoPage(request, response, "/changeinfo.jsp"); 
 				                    return;
 				                }
-				                
+				                    
 				            } else {
-				                request.setAttribute("message", "新しいパスワードとパスワード確認用が異なります");
+				                request.setAttribute("message", "名前は１文字以上１００文字以内で入力してください");
 				                gotoPage(request, response, "/changeinfo.jsp"); 
 				                return;
 				            }
+				                
 				        } else {
-				            request.setAttribute("message", "新しいパスワードは６字以上16字以下で入力して下さい");
+				            request.setAttribute("message", "新しいパスワードとパスワード確認用が異なります");
 				            gotoPage(request, response, "/changeinfo.jsp"); 
 				            return;
 				        }
 				    } else {
-				        request.setAttribute("message", "現在のパスワードは６字以上16字以下で入力して下さい");
+				        request.setAttribute("message", "新しいパスワードは６字以上16字以下で入力して下さい");
 				        gotoPage(request, response, "/changeinfo.jsp"); 
 				        return;
 				    }
