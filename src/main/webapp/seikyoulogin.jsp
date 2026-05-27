@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>生協ログイン</title>
+<link href="all.css" rel="stylesheet">
 <style>
   /* 画面全体の中央寄せ */
   body {
