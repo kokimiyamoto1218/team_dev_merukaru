@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="mypage.css" rel="stylesheet">
+<link href="all.css" rel="stylesheet">
 <title>会員情報変更</title>
 </head>
 
