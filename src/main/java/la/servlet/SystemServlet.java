@@ -262,8 +262,7 @@ public class SystemServlet extends HttpServlet {
 				 String lang = request.getParameter("lang");
 				 String comment = request.getParameter("comment");
 				String condition = "";
-				HttpSession session = request.getSession();
-			    Integer currentUserId = (Integer) session.getAttribute("userId");
+			    Integer currentUserId = 1;
 				
 				 
 				 if(lang == null) {
@@ -304,6 +303,12 @@ public class SystemServlet extends HttpServlet {
 				    // 3. 「ログアウトしました」というメッセージを準備する
 				    request.setAttribute("message", "ログアウトしました。");
 				    gotoPage(request,response,"/login.jsp");
+			 }
+			 else if(action.equals("sback")) {
+				 List<ItemBean> list = dao.findAll();
+				 //ログイン認証→一覧ページ
+				 request.setAttribute("showitem", list);
+				 gotoPage(request, response, "/seikyouitemlist.jsp");
 			 }
 			 
 			

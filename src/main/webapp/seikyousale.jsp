@@ -16,6 +16,7 @@
 
 <form action = "/team_dev_merukaru/SystemServlet" method = "post">
 
+
 <h2>出品フォーム</h2>
 
 <p id="error">${errorMsg}</p> 
