@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;     /* 左右の中央揃え */
+    
+    /* 上から4センチあけた位置をスタート地点にする */
+    padding-top: 4cm;        
+    margin: 0;
+    box-sizing: border-box;
+}

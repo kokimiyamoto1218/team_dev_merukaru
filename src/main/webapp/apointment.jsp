@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <link href="all.css" rel="stylesheet">
+<link href="apointment.css" rel="stylesheet">
 <title>受け取り日時予約</title>
 </head>
 <body>
