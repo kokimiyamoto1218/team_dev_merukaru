@@ -31,7 +31,7 @@
 <input type="hidden" name="nu" value="新品">
 
 <p><button name = "action" value = "seikyousale" class="seikyou-submit-btn">出品</button></p>
-<p><a href="/team_dev_merukaru/SystemServlet?action=back" class="back-btn-custom">一覧表示に戻る</a></p><br><br>
+<p><a href="/team_dev_merukaru/SystemServlet?action=sback" class="back-btn-custom">一覧表示に戻る</a></p><br><br>
 </form>
 
 			</td>
