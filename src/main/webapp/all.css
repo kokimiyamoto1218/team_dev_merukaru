@@ -22,12 +22,12 @@ h2{
 	color:aliceblue;
 }
 
+
 /*
 	タイトル表示用H2タグのスタイル定義
 */
 .titleH2 {
-	margin-left:550px;
-	margin-right: 550px;
-	padding-left: 50px;
-	padding-right: 50px;;
+	display: inline-block; /* 文字の幅に合わせたブロックにします */
+	margin: 20px auto;     /* 上下に20pxの余白を空け、左右は自動中央揃えにします */
+	padding: 0 10px;       /* 文字の左右に少しだけ内側の余白を作ります */
 }

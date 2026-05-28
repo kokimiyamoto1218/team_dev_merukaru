@@ -19,7 +19,7 @@
 
 
 <br><br>
-<h2 class="titleH2">新規会員登録</h2>
+<h2 class="titleH2">新規会員登録</h2><br>
 名前<br>
 <input type="text" name="name" cols="20"><br>
 パスワード<br>
