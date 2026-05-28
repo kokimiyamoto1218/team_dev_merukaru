@@ -12,6 +12,7 @@
 <div style="text-align: center;">
 
 <body>
+<br>
 <form action = "/team_dev_merukaru/SystemServlet" method = "post">
 <h2  class="titleH2"><font size="6">ログイン</h2>
 <p>${message }</p>
