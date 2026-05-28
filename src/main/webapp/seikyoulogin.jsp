@@ -8,12 +8,14 @@
 <title>生協ログイン</title>
 <link href="all.css" rel="stylesheet">
 <style>
-  /* 画面全体の中央寄せ */
+  /* 画面全体の中央寄せ（上下のみ位置を約3センチ上に調整） */
   body {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start; /* 上寄せに変更 */
+    padding-top: 15vh;        /* 上から約3センチ（画面の高さの15%）の位置に固定 */
     min-height: 100vh;
+    box-sizing: border-box;   /* 余白の計算を狂わせないための設定 */
     margin: 0;
     font-family: sans-serif;
   }
@@ -50,40 +52,6 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
