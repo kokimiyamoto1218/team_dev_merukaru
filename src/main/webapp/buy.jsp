@@ -50,7 +50,7 @@ th {
 </style>
 </head>
 <body>
-
+<br><br><br>
 	<form action = "/team_dev_merukaru/ItemServlet" method = "post">
 		<table id="outer">
 			<tr>
