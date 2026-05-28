@@ -49,7 +49,7 @@
 
 
 
-		<input type="text" size="33" name="bookname" cols="50">
+		<input type="text" size="33" name="bookname" cols="50" value = "${word }">
 		 <select name="check">
 			<option value="全て">全て</option>
 			<option value="新品">新品</option>

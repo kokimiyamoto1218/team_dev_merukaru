@@ -77,6 +77,7 @@ public class ItemServlet extends HttpServlet {
 					System.out.println("neworused:" + neworused);
 
 					List<ItemBean> list = dao1.searchBook(name, neworused);
+					request.setAttribute("word", name);
 					request.setAttribute("showitem", list);
 
 					gotoPage(request, response, "/itemlist.jsp");
