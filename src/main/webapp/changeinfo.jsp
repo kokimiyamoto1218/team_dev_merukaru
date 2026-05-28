@@ -14,7 +14,7 @@
 <body>
 <form action = "/team_dev_merukaru/SystemServlet" method = "post">
 <br><br>
-<h2>会員情報変更</h2>
+<h2  class="titleH2">会員情報変更</h2>
 <p>${message }</p>
 名前<br>
 <input type="text" name="name" cols="20"><br>
