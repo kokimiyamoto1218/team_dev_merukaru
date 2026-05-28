@@ -1,0 +1,118 @@
+@charset "UTF-8";
+
+body {
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
+
+table {
+    margin: 0 auto;
+    text-align: center;
+}
+
+td {
+    text-align: center;
+}
+
+/* ★ フォームを小さく調整 */
+.seikyou-form-box {
+    display: inline-block;
+    text-align: center;
+    padding: 15px 25px; /* 上下25px→15px、左右35px→25pxに縮小 */
+    background-color: #faf6ee;
+    border: 1px dashed #c8bca6;
+    border-radius: 6px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    color: #2b4c3f;
+    font-weight: bold;
+    font-size: 13px; /* 14px → 13px に微調整 */
+    min-width: 220px; /* 260px → 220px に縮小 */
+    margin: 0 auto;
+}
+
+/* ★ <p>タグによる縦方向の余白を狭くする */
+.seikyou-form-box p {
+    margin: 10px 0; /* デフォルトの広いマージンを小さく固定 */
+}
+
+/* 入力テキストボックス */
+.seikyou-input {
+    width: 100%;
+    max-width: 200px; /* 220px → 200px に縮小 */
+    padding: 6px 10px; /* 上下8px → 6px に縮小 */
+    font-size: 14px; /* 15px → 14px に縮小 */
+    border: 1px solid #c8bca6;
+    border-radius: 4px;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    color: #3e3a36;
+    margin-top: 2px; /* 5px → 2px に縮小 */
+    text-align: center;
+}
+.seikyou-input:focus {
+    outline: none;
+    border-color: #2b4c3f;
+}
+
+/* 金額や名前が空のときのエラー（ゴールド） */
+#error {
+    color: #ffda44;
+    font-weight: bold;
+    font-size: 15px;
+    margin: 10px 0;
+    text-shadow: 0 0 8px rgba(255, 218, 68, 0.4);
+    text-align: center;
+}
+
+/* ★ アンティーク風のぷっくり出品ボタン（少し小さく） */
+.seikyou-submit-btn {
+    display: inline-block;
+    width: 150px; /* 180px → 150px に縮小 */
+    padding: 8px 15px; /* 上下12px→8px、左右20px→15pxに縮小 */
+    font-size: 15px; /* 16px → 15px に縮小 */
+    font-weight: bold;
+    color: #ffffff !important;
+    background: linear-gradient(135deg, #c89666, #b07d4e);
+    border: none;
+    border-radius: 25px;
+    box-shadow: 0 4px 0 #8b5a2b, 0 6px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.1s ease;
+    cursor: pointer;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    margin: 0 auto;
+}
+.seikyou-submit-btn:active {
+    transform: translateY(4px);
+    box-shadow: 0 0px 0 #8b5a2b, 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* 一覧に戻るリンクの白文字化 */
+.back-btn-custom {
+  display: inline-block;
+  position: relative;
+  padding: 8px 20px 8px 32px;
+  color: #ffffff;
+  font-size: 14px;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+}
+.back-btn-custom::before {
+  content: '◀';
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 10px;
+  transition: all 0.2s ease;
+}
+.back-btn-custom:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: #ffffff;
+}
+.back-btn-custom:hover::before {
+  left: 8px;
+}
