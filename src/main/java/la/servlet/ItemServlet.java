@@ -132,7 +132,8 @@ public class ItemServlet extends HttpServlet {
 				    int price = Integer.parseInt(request.getParameter("price")); 
 				    String condition = request.getParameter("condition");
 				    String neworused = request.getParameter("neworused");
-				    System.out.println(product_id);
+				    System.out.println(product_id); 
+				   
 				    request.setAttribute("product_id", product_id);
 					request.setAttribute("name", name);
 					request.setAttribute("price", price);

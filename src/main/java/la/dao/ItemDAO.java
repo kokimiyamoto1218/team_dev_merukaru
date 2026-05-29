@@ -271,7 +271,7 @@ public class ItemDAO {
 			List<ItemBean> list = new ArrayList<ItemBean>();
 			while (rs.next()) {
 				// ItemBeanオブジェクトを生成してリストに追加する
-				list.add(new ItemBean(0, rs.getString("product_name"), rs.getInt("price"),  rs.getString("condition"), rs.getString("neworused"), 0));
+				list.add(new ItemBean(rs.getInt("product_id"), rs.getString("product_name"), rs.getInt("price"),  rs.getString("condition"), rs.getString("neworused"), 0));
 
 			}
 			// 商品一覧をListとして返す
